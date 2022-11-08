@@ -1,0 +1,14 @@
+{
+  "system": { "name": "dev: castle-ac-dc" },
+  "persistence": {
+    "serverPersistence": {
+      "type": "maria-db",
+      "isDefault": true,
+      "database": "castle_ac_dc",
+      "host": "192.168.178.33",
+      "port": 3306,
+      "user": "root",
+      "password": "castle-ac-dc"
+    }
+  }
+}
