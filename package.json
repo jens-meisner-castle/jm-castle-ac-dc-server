@@ -1,6 +1,6 @@
 {
   "name": "jm-castle-ac-dc-server",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "type": "module",
   "main": "dist/index.mjs",
   "private": false,

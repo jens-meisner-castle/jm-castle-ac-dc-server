@@ -15,7 +15,7 @@
 
 # private data
 /public/config/private-local-config.json
-/public/config/private-config.json
+/public/config/private-castle-config.json
 /public/config/private-setup-config.json
 
 # misc
