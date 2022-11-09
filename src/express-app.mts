@@ -14,7 +14,7 @@ export const newExpressApp = (port: number | string | false) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
-  app.use(express.static("./web-app"));
+  app.use(express.static("./client"));
 
   app.use("/api", apiRouter);
 

@@ -12,6 +12,7 @@
 /build
 /dist
 /web-app
+/client
 
 # misc
 .DS_Store
