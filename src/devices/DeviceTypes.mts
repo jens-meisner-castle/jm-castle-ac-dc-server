@@ -1,5 +1,3 @@
-import { DatacollectorPart } from "../engines/data-collector/Types.mjs";
-import { EngineContextConsumer } from "../engines/Types.mjs";
 import {
   DatapointState,
   Device,
@@ -9,7 +7,9 @@ import {
   LocalDatapoint,
   SimulationDeviceTypeId,
   SimulationSpec,
-} from "../Types.mjs";
+} from "jm-castle-ac-dc-types/dist/All.mjs";
+import { DatacollectorPart } from "../engines/data-collector/Types.mjs";
+import { EngineContextConsumer } from "../engines/Types.mjs";
 import { BosswerkMi600 } from "./bosswerkMi600/Types.mjs";
 import { DeviceInstance } from "./DeviceInstance.mjs";
 import { MqttClientType } from "./mqtt/Types.mjs";

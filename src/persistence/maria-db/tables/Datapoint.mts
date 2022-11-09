@@ -1,4 +1,4 @@
-import { Table } from "../../../Types.mjs";
+import { Table } from "jm-castle-ac-dc-types/dist/All.mjs";
 
 export const TableDatapoint: Table = {
   id: "datapoint",

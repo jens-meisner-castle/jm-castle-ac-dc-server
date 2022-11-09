@@ -1,9 +1,3 @@
-import { WebSocket } from "ws";
-import {
-  ControlContextConsumer,
-  EngineContextConsumer,
-} from "../engines/Types.mjs";
-import { CastleAcDc } from "../system/status/System.mjs";
 import {
   DatapointState,
   isWsMessage,
@@ -11,7 +5,13 @@ import {
   msg_publish,
   msg_welcome,
   WsMessage,
-} from "../Types.mjs";
+} from "jm-castle-ac-dc-types/dist/All.mjs";
+import { WebSocket } from "ws";
+import {
+  ControlContextConsumer,
+  EngineContextConsumer,
+} from "../engines/Types.mjs";
+import { CastleAcDc } from "../system/status/System.mjs";
 
 let counter = 0;
 

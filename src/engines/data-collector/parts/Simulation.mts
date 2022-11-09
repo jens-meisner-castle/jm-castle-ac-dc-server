@@ -1,5 +1,5 @@
+import { DeviceStatus } from "jm-castle-ac-dc-types/dist/All.mjs";
 import { DeviceInstance } from "../../../devices/DeviceInstance.mjs";
-import { DeviceStatus } from "../../../Types.mjs";
 import { EngineContext } from "../../EngineContext.mjs";
 import { DatacollectorPart, DatacollectorPartRunResponse } from "../Types.mjs";
 

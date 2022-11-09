@@ -2,7 +2,7 @@ import {
   InsertResponse,
   Row_DatapointControlLog as Row,
   SelectResponse,
-} from "../../../Types.mjs";
+} from "jm-castle-ac-dc-types/dist/All.mjs";
 import { MariaDbClient } from "../MariaDb.mjs";
 import { TableDatapointControlLog } from "../tables/DatapointControlLog.mjs";
 import { Filter_LoggedAt_FromTo_Seconds, valuesClause } from "./QueryUtils.mjs";

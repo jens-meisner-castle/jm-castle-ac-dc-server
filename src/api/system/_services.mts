@@ -1,10 +1,9 @@
+import { UniqueDatapoint } from "jm-castle-ac-dc-types/dist/All.mjs";
 import { getOptionalSingleQueryParametersSchema } from "../../json-schema/parameters.mjs";
 import { executeSetup } from "../../system/setup/ExecuteSetup.mjs";
 import { getSystemSetupStatus } from "../../system/setup/Status.mjs";
 import { getCurrentSystem } from "../../system/status/System.mjs";
-import { UniqueDatapoint } from "../../Types.mjs";
 import { ApiService } from "../Types.mjs";
-
 const allServices: ApiService[] = [];
 
 allServices.push({

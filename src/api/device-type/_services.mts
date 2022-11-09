@@ -1,7 +1,6 @@
+import { DeviceTypeId } from "jm-castle-ac-dc-types/dist/All.mjs";
 import { supportedDeviceTypes } from "../../devices/DeviceTypes.mjs";
-import { DeviceTypeId } from "../../Types.mjs";
 import { ApiService, getSerializableDeviceTypes } from "../Types.mjs";
-
 const allServices: ApiService[] = [];
 
 allServices.push({

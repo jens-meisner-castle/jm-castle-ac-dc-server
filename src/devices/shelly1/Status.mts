@@ -1,5 +1,8 @@
+import {
+  DatapointState,
+  DeviceStatus,
+} from "jm-castle-ac-dc-types/dist/All.mjs";
 import fetch, { RequestInit } from "node-fetch";
-import { DatapointState, DeviceStatus } from "../../Types.mjs";
 import { DeviceInstance } from "../DeviceInstance.mjs";
 import { Shelly1DatapointId, Shelly1Status } from "./Types.mjs";
 

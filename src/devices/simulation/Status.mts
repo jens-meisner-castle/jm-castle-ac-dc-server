@@ -1,14 +1,13 @@
-import { DateTime, Duration } from "luxon";
 import {
   DatapointState,
   Device,
   DeviceDatapoint,
   DeviceStatus,
   DeviceTypeId,
-  SimulationDeviceTypeId,
   SimulationPreviewResponse,
   UniqueDatapoint,
-} from "../../Types.mjs";
+} from "jm-castle-ac-dc-types/dist/All.mjs";
+import { DateTime, Duration } from "luxon";
 import { getSimulationAtArray } from "../../utils/DateUtils.mjs";
 import { DeviceInstance } from "../DeviceInstance.mjs";
 import { SimulationDayAndNight } from "./day-night/Simulation.mjs";

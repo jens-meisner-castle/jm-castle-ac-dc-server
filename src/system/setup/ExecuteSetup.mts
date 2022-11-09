@@ -1,8 +1,8 @@
+import { ExecuteSetupResponse } from "jm-castle-ac-dc-types/dist/All.mjs";
 import {
   AllTables,
   MariaDbClient,
 } from "../../persistence/maria-db/MariaDb.mjs";
-import { ExecuteSetupResponse } from "../../Types.mjs";
 import { getCurrentSystem } from "../status/System.mjs";
 
 const getResultFromCreateTableOrDbResponse = (

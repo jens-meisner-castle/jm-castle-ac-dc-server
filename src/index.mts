@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import { createServer } from "http";
+import { Configuration } from "jm-castle-ac-dc-types/dist/All.mjs";
 import {
   configFilePath,
   readJsonFile,
@@ -11,7 +12,6 @@ import {
   getCurrentSystem,
   setCurrentSystem,
 } from "./system/status/System.mjs";
-import { Configuration } from "./Types.mjs";
 
 const normalizePort = (val: string) => {
   const port = parseInt(val, 10);

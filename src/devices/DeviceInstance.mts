@@ -1,4 +1,3 @@
-import { EngineContextConsumer } from "../engines/Types.mjs";
 import {
   ControlExecutionSpec,
   DatapointState,
@@ -9,7 +8,8 @@ import {
   DeviceStatus,
   LocalDatapoint,
   LocalDatapointId,
-} from "../Types.mjs";
+} from "jm-castle-ac-dc-types/dist/All.mjs";
+import { EngineContextConsumer } from "../engines/Types.mjs";
 import { DeviceType, supportedDeviceTypes } from "./DeviceTypes.mjs";
 
 interface DatapointIdMapping {

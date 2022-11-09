@@ -1,9 +1,9 @@
-import { DateTime, Duration } from "luxon";
 import {
-  EngineControlResponse,
   DatapointState,
   DeviceStatus,
-} from "../../Types.mjs";
+  EngineControlResponse,
+} from "jm-castle-ac-dc-types/dist/All.mjs";
+import { DateTime, Duration } from "luxon";
 
 export interface Simulation {
   start: () => Promise<EngineControlResponse>;

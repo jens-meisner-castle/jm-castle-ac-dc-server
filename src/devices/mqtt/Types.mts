@@ -1,7 +1,7 @@
+import { Device, DeviceTypeId } from "jm-castle-ac-dc-types/dist/All.mjs";
 import { makeDatacollectorPart } from "../../engines/data-collector/parts/PublishingDevice.mjs";
 import { DatacollectorPart } from "../../engines/data-collector/Types.mjs";
 import { EngineContextConsumer } from "../../engines/Types.mjs";
-import { Device, DeviceTypeId } from "../../Types.mjs";
 import { DeviceInstance } from "../DeviceInstance.mjs";
 import { DeviceType } from "../DeviceTypes.mjs";
 import {

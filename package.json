@@ -1,6 +1,6 @@
 {
   "name": "jm-castle-ac-dc-server",
-  "version": "0.6.1",
+  "version": "0.7.1",
   "type": "module",
   "main": "dist/index.mjs",
   "private": false,
@@ -40,6 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.23.1",
+    "jm-castle-ac-dc-types": "^0.7.1",
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
     "ts-node": "^10.9.1",

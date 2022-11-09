@@ -1,10 +1,10 @@
-import { Duration, DurationLikeObject } from "luxon";
 import {
   DatapointSequenceSpec,
   DatapointState,
   DurationUnits,
   UniqueDatapoint,
-} from "../../../Types.mjs";
+} from "jm-castle-ac-dc-types/dist/All.mjs";
+import { Duration, DurationLikeObject } from "luxon";
 import { EngineContext } from "../../EngineContext.mjs";
 import { DatastatePart, DatastatePartRunResponse } from "../Types.mjs";
 

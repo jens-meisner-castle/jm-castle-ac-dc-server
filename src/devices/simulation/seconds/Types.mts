@@ -1,6 +1,9 @@
+import {
+  LocalDatapoint,
+  SimulationDeviceTypeId,
+} from "jm-castle-ac-dc-types/dist/All.mjs";
 import { makeDatacollectorPart as makeSimulationPart } from "../../../engines/data-collector/parts/Simulation.mjs";
 import { DatacollectorPart } from "../../../engines/data-collector/Types.mjs";
-import { LocalDatapoint, SimulationDeviceTypeId } from "../../../Types.mjs";
 import { DeviceInstance } from "../../DeviceInstance.mjs";
 import { DeviceType } from "../../DeviceTypes.mjs";
 import { fetchStatusFromSimulation, stopSimulation } from "../Status.mjs";

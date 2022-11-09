@@ -1,5 +1,3 @@
-import { DateTime, Duration } from "luxon";
-import math, { all, create, isResultSet, Matrix } from "mathjs";
 import {
   AnyDataValue,
   Datapoint,
@@ -11,7 +9,9 @@ import {
   DurationUnits,
   isDurationUnit,
   SequenceState,
-} from "../../../Types.mjs";
+} from "jm-castle-ac-dc-types/dist/All.mjs";
+import { DateTime, Duration } from "luxon";
+import math, { all, create, isResultSet, Matrix } from "mathjs";
 import { EngineContext } from "../../EngineContext.mjs";
 import { DatastatePartRunResponse } from "../Types.mjs";
 

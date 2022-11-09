@@ -1,11 +1,10 @@
+import { LocalDatapoint } from "jm-castle-ac-dc-types/dist/All.mjs";
 import { makeDatacollectorPart } from "../../engines/data-collector/parts/RestfulDevice.mjs";
-import { LocalDatapoint } from "../../Types.mjs";
 import { DeviceType } from "../DeviceTypes.mjs";
 import {
   executeControlRequestOnDevice,
   fetchStatusFromDevice,
 } from "./Status.mjs";
-
 export const exampleStatus = {
   wifi_sta: {
     connected: true,

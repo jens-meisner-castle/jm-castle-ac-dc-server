@@ -1,10 +1,10 @@
-import { CastleAcDc } from "../../system/status/System.mjs";
 import {
   ActionSpec,
   DeviceControlResponse,
   EngineControlResponse,
   SerializableEngine,
-} from "../../Types.mjs";
+} from "jm-castle-ac-dc-types/dist/All.mjs";
+import { CastleAcDc } from "../../system/status/System.mjs";
 import { ControlContext } from "../ControlContext.mjs";
 import { EngineContext } from "../EngineContext.mjs";
 import { Control, ControlContextConsumer, Engine } from "../Types.mjs";

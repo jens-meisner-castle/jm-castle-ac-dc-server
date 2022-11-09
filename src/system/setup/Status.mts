@@ -1,9 +1,13 @@
 import {
+  SystemSetupStatus,
+  Table,
+  TableStatus,
+} from "jm-castle-ac-dc-types/dist/All.mjs";
+import {
   AllTables,
   MariaDbClient,
 } from "../../persistence/maria-db/MariaDb.mjs";
 import { columns } from "../../persistence/maria-db/Table.mjs";
-import { SystemSetupStatus, Table, TableStatus } from "../../Types.mjs";
 import { getCurrentSystem } from "../status/System.mjs";
 
 export const getSystemSetupStatus = async (): Promise<SystemSetupStatus> => {

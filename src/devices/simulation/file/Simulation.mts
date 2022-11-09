@@ -1,11 +1,11 @@
-import { DateTime } from "luxon";
-import { readJsonFile } from "../../../configuration/Configuration.mjs";
 import {
-  EngineControlResponse,
   DatapointState,
   Device,
   DeviceStatus,
-} from "../../../Types.mjs";
+  EngineControlResponse,
+} from "jm-castle-ac-dc-types/dist/All.mjs";
+import { DateTime } from "luxon";
+import { readJsonFile } from "../../../configuration/Configuration.mjs";
 import { getUrl } from "../Status.mjs";
 import { Simulation } from "../Types.mjs";
 

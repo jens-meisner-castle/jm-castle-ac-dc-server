@@ -1,4 +1,4 @@
-import { DatapointMapping } from "../../../Types.mjs";
+import { DatapointMapping } from "jm-castle-ac-dc-types/dist/All.mjs";
 import { EngineContext } from "../../EngineContext.mjs";
 import { DatastatePart, DatastatePartRunResponse } from "../Types.mjs";
 

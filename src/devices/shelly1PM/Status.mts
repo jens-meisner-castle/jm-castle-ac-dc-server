@@ -1,8 +1,10 @@
+import {
+  DatapointState,
+  DeviceStatus,
+} from "jm-castle-ac-dc-types/dist/All.mjs";
 import fetch, { RequestInit } from "node-fetch";
-import { DatapointState, DeviceStatus } from "../../Types.mjs";
 import { DeviceInstance } from "../DeviceInstance.mjs";
 import { Shelly1PMDatapointId, Shelly1PMStatus } from "./Types.mjs";
-
 export const fetchStatusFromDevice = (deviceInstance: DeviceInstance) =>
   fetchStatus(deviceInstance.getDevice().api);
 

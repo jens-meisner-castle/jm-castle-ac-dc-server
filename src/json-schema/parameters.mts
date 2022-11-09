@@ -1,4 +1,4 @@
-import { QueryParametersSchema } from "../Types.mjs";
+import { QueryParametersSchema } from "jm-castle-ac-dc-types/dist/All.mjs";
 
 export const defaultFields = {
   $schema: "https://json-schema.org/draft/2020-12/schema",

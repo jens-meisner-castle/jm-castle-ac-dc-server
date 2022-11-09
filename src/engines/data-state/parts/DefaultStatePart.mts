@@ -1,6 +1,6 @@
+import { Datapoint } from "jm-castle-ac-dc-types/dist/All.mjs";
 import { DateTime } from "luxon";
 import { CastleAcDc } from "../../../system/status/System.mjs";
-import { Datapoint } from "../../../Types.mjs";
 import { getDateFormat } from "../../../utils/Format.mjs";
 import { EngineContext } from "../../EngineContext.mjs";
 import { DatastatePart, DatastatePartRunResponse } from "../Types.mjs";

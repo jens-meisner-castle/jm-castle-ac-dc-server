@@ -1,12 +1,12 @@
+import {
+  InsertResponse,
+  Row_DatapointControlLog,
+  Row_DatapointLog,
+  SelectResponse,
+} from "jm-castle-ac-dc-types/dist/All.mjs";
 import { ControlContext } from "../engines/ControlContext.mjs";
 import { EngineContext } from "../engines/EngineContext.mjs";
 import { PersistPart } from "../engines/persist/Types.mjs";
-import {
-  InsertResponse,
-  Row_DatapointLog,
-  Row_DatapointControlLog,
-  SelectResponse,
-} from "../Types.mjs";
 import { Filter_LoggedAt_FromTo_Seconds } from "./maria-db/query/QueryUtils.mjs";
 
 export interface Persistence {

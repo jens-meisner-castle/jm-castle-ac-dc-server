@@ -1,7 +1,3 @@
-import { createPool, Pool } from "mariadb";
-import { ControlContext } from "../../engines/ControlContext.mjs";
-import { EngineContext } from "../../engines/EngineContext.mjs";
-import { Engine } from "../../engines/Types.mjs";
 import {
   DatapointState,
   InsertResponse,
@@ -11,7 +7,11 @@ import {
   Row_DatapointControlLog,
   Row_DatapointLog,
   SerializableEngine,
-} from "../../Types.mjs";
+} from "jm-castle-ac-dc-types/dist/All.mjs";
+import { createPool, Pool } from "mariadb";
+import { ControlContext } from "../../engines/ControlContext.mjs";
+import { EngineContext } from "../../engines/EngineContext.mjs";
+import { Engine } from "../../engines/Types.mjs";
 import {
   Persistence,
   PersistencePart,

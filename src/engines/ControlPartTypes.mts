@@ -1,11 +1,10 @@
 import {
   ActionSpec,
-  ControlAction,
   ControlPartSpec,
   ControlPartTypeId,
   Datapoint,
   UniqueDatapoint,
-} from "../Types.mjs";
+} from "jm-castle-ac-dc-types/dist/All.mjs";
 import { ActionExecutionType } from "./control/parts/ActionExecution.mjs";
 import { FreezersControlType } from "./control/parts/FreezersControl.mjs";
 import { ControlPart } from "./control/Types.mjs";
