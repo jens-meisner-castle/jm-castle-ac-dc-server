@@ -1,0 +1,459 @@
+{
+  "system": { "name": "dev: castle-ac-dc" },
+  "persistence": {
+    "serverPersistence": {
+      "type": "maria-db",
+      "isDefault": true,
+      "database": "castle_ac_dc",
+      "host": "192.168.178.33",
+      "port": 3306,
+      "user": "root",
+      "password": "castle-ac-dc"
+    }
+  },
+  "mail": {
+    "defaultSender": {
+      "type": "smtp",
+      "isDefault": true,
+      "host": "mail.gmx.net",
+      "port": 465,
+      "user": "jm.castle.ac.dc@gmx.de",
+      "password": "DasIstMeins11!",
+      "defaultReceivers": [{ "address": "jnsmsnr@gmail.com" }]
+    }
+  },
+  "devices": {
+    "server-mqtt": {
+      "id": "server-mqtt",
+      "ipAddress": "192.168.178.33",
+      "webInterface": "/device",
+      "api": "mqtt://192.168.178.33:1883",
+      "type": "mqtt",
+      "datapoints": {
+        "$SYS/broker/clients/connected": {
+          "localId": "$SYS/broker/clients/connected",
+          "name": "Verbundene mqtt clients (server)",
+          "valueType": "number"
+        },
+        "castle-ac-dc/test/counter": {
+          "localId": "castle-ac-dc/test/counter",
+          "name": "Test Zähler",
+          "valueType": "number"
+        }
+      },
+      "controlDatapoints": {
+        "castle-ac-dc/test/counter": {
+          "localId": "castle-ac-dc/test/counter",
+          "name": "Test Zähler",
+          "valueType": "number"
+        }
+      }
+    },
+    "shelly-1-01": {
+      "id": "shelly-1-01",
+      "ipAddress": "192.168.178.37",
+      "webInterface": "http://192.168.178.37",
+      "api": "http://192.168.178.37",
+      "type": "shelly-1"
+    },
+    "shelly-1-pm-01": {
+      "id": "shelly-1-pm-01",
+      "ipAddress": "192.168.178.26",
+      "webInterface": "http://192.168.178.26",
+      "api": "http://192.168.178.26",
+      "type": "shelly-1-pm",
+      "mapDatapoints": {
+        "power": {
+          "id": "power-freezer-1",
+          "name": "Leistung Kühlschrank Küche"
+        },
+        "relay-state": {
+          "id": "relay-freezer-1",
+          "name": "Kühlschrank Küche Relais"
+        }
+      }
+    },
+    "shelly-1-pm-02": {
+      "id": "shelly-1-pm-02",
+      "ipAddress": "192.168.178.32",
+      "webInterface": "http://192.168.178.32",
+      "api": "http://192.168.178.32",
+      "type": "shelly-1-pm",
+      "mapDatapoints": {
+        "power": {
+          "id": "power-server",
+          "name": "Leistung Server"
+        }
+      }
+    },
+    "shelly-2-5-01": {
+      "id": "shelly-2-5-01",
+      "ipAddress": "192.168.178.31",
+      "webInterface": "http://192.168.178.31",
+      "api": "http://192.168.178.31",
+      "type": "shelly-2-5",
+      "mapControlDatapoints": {
+        "relay-control-1": {
+          "id": "relay-control-freezer-2",
+          "name": "Steuerung Relais Kühlschrank Keller"
+        },
+        "relay-control-2": {
+          "id": "relay-control-deepfreezer",
+          "name": "Steuerung Relais Gefrierschrank"
+        }
+      },
+      "mapDatapoints": {
+        "power-1": {
+          "id": "power-freezer-2",
+          "name": "Leistung Kühlschrank Keller"
+        },
+        "power-2": {
+          "id": "power-deepfreezer",
+          "name": "Leistung Gefrierschrank"
+        },
+        "voltage": {
+          "id": "voltage-cellar",
+          "name": "Spannung Keller"
+        },
+        "relay-state-1": {
+          "id": "relay-freezer-2",
+          "name": "Kühlschrank Keller Relais"
+        },
+        "relay-state-2": {
+          "id": "relay-deepfreezer",
+          "name": "Gefrierschrank Relais"
+        }
+      }
+    },
+    "solari-01": {
+      "id": "solari-01",
+      "ipAddress": "192.168.178.41",
+      "webInterface": "http://192.168.178.41",
+      "api": "not yet implemented",
+      "type": "bosswerk-mi-600"
+    },
+    "sim-basic-load": {
+      "id": "sim-basic-load",
+      "ipAddress": "internal",
+      "webInterface": "internal",
+      "api": "internal://sim?power=120",
+      "type": "sim-const",
+      "datapoints": {
+        "power": {
+          "localId": "power",
+          "name": "Konstante Grundlast",
+          "valueType": "number",
+          "valueUnit": "W"
+        }
+      }
+    },
+    "sim-day-night": {
+      "id": "sim-day-night",
+      "ipAddress": "internal",
+      "webInterface": "internal",
+      "api": "internal://sim?longitude=9.99&latitude=53.55",
+      "type": "sim-day-night"
+    },
+    "sim-solari-01": {
+      "id": "sim-solari-01",
+      "ipAddress": "internal",
+      "webInterface": "internal",
+      "api": "internal://sim?file=public/sim/solari-01-power.json",
+      "type": "sim-file",
+      "datapoints": {
+        "power": {
+          "localId": "power",
+          "name": "Aktuelle Leistung",
+          "valueType": "number",
+          "valueUnit": "W"
+        }
+      }
+    }
+  },
+  "engines": {
+    "datacollector-global": {
+      "id": "datacollector-global",
+      "autoStart": true,
+      "collect": {
+        "lapDuration": -1,
+        "onEvent": true,
+        "devices": {
+          "server-mqtt": {
+            "datapoints": [
+              "$SYS/broker/clients/connected",
+              "castle-ac-dc/test/counter"
+            ]
+          }
+        }
+      }
+    },
+    "datacollector-local": {
+      "id": "datacollector-local",
+      "autoStart": true,
+      "collect": {
+        "lapDuration": 10000,
+        "devices": {
+          "sim-basic-load": { "datapoints": ["power"] },
+          "sim-solari-01": { "datapoints": ["power"] },
+          "sim-day-night": {
+            "datapoints": [
+              "sunrise-at",
+              "sunset-at",
+              "is-daylight",
+              "daylight-duration"
+            ]
+          },
+          "shelly-2-5-01": {
+            "datapoints": [
+              "energy-counter-total-1",
+              "energy-counter-total-2",
+              "power-deepfreezer",
+              "power-freezer-2",
+              "relay-deepfreezer",
+              "relay-freezer-2",
+              "inner-temperature",
+              "voltage-cellar"
+            ]
+          },
+          "shelly-1-01": {
+            "datapoints": ["relay-state", "external-temperature-1"]
+          },
+          "shelly-1-pm-01": {
+            "datapoints": [
+              "energy-counter-total",
+              "power-freezer-1",
+              "relay-freezer-1",
+              "inner-temperature"
+            ]
+          },
+          "shelly-1-pm-02": {
+            "datapoints": [
+              "energy-counter-total",
+              "power-server",
+              "inner-temperature",
+              "energy-sum-prev-minute-1",
+              "energy-sum-prev-minute-2",
+              "energy-sum-prev-minute-3"
+            ]
+          }
+        }
+      }
+    },
+    "state": {
+      "autoStart": true,
+      "stateParts": [
+        {
+          "mapDatapoints": {
+            "power@sim-basic-load": {
+              "id": "power-basic-load",
+              "name": "Leistung Grundlast"
+            }
+          },
+          "calculateDatapoints": {
+            "voltage-correction-factor": {
+              "code": "get('voltage-cellar') / 220",
+              "name": "Spannungskorrektur Faktor (tats. Spannung / 220 V)",
+              "valueType": "number"
+            },
+            "power-inverter": {
+              "code": "get('power@sim-solari-01') * get('voltage-correction-factor')",
+              "name": "Leistung Wechselrichter",
+              "valueType": "number",
+              "valueUnit": "W"
+            },
+            "power-freezers": {
+              "code": "get('power-freezer-1') + get('power-freezer-2') + get('power-deepfreezer')",
+              "name": "Leistung Kühlung",
+              "valueType": "number",
+              "valueUnit": "W"
+            },
+            "energy-counter-freezers": {
+              "code": "(get('energy-counter-total@shelly-1-pm-02') + get('energy-counter-total-1@shelly-2-5-01') + get('energy-counter-total-2@shelly-2-5-01')) / 60",
+              "name": "Energiezähler Kühlung",
+              "valueType": "number",
+              "valueUnit": "Wh"
+            },
+            "power-balance": {
+              "code": "get('power-inverter') - get('power-freezer-2') - get('power-deepfreezer') - get('power-basic-load')",
+              "name": "Leistungsdifferenz (Produktion - Verbrauch)",
+              "valueType": "number",
+              "valueUnit": "W"
+            },
+            "energy-counter-freezer-1": {
+              "code": "get('energy-counter-total@shelly-1-pm-02') / 60",
+              "name": "Energiezähler Kühlschrank Küche",
+              "valueType": "number",
+              "valueUnit": "Wh"
+            },
+            "energy-counter-freezer-2": {
+              "code": "get('energy-counter-total-1@shelly-2-5-01') / 60",
+              "name": "Energiezähler Kühlschrank Keller",
+              "valueType": "number",
+              "valueUnit": "Wh"
+            },
+            "energy-counter-deepfreezer": {
+              "code": "get('energy-counter-total-2@shelly-2-5-01') / 60",
+              "name": "Energiezähler Gefrierschrank",
+              "valueType": "number",
+              "valueUnit": "Wh"
+            },
+            "active-freezer-1": {
+              "code": "get('power-freezer-1') > 20",
+              "name": "Kühlschrank Küche kühlt",
+              "valueType": "boolean"
+            },
+            "active-freezer-2": {
+              "code": "get('power-freezer-2') > 20",
+              "name": "Kühlschrank Keller kühlt",
+              "valueType": "boolean"
+            },
+            "active-deepfreezer": {
+              "code": "get('power-deepfreezer') > 40",
+              "name": "Gefrierschrank kühlt",
+              "valueType": "boolean"
+            }
+          }
+        },
+        {
+          "sequenceDatapoints": [
+            {
+              "sequenceId": "power-inverter-last-60-minutes",
+              "datapointId": "power-inverter",
+              "condition": { "change": "at" },
+              "limit": { "maxAge": { "count": 60, "unit": "min" } }
+            },
+            {
+              "sequenceId": "active-deepfreezer-changes",
+              "datapointId": "active-deepfreezer",
+              "condition": { "change": "value" },
+              "limit": { "maxCount": 50 }
+            }
+          ]
+        },
+        {
+          "calculateDatapoints": {
+            "energy-inverter-last-60-minutes": {
+              "code": "seqIntegral('power-inverter-last-60-minutes', 'h')",
+              "name": "Energie Wechselrichter (pro 60 Min.)",
+              "valueType": "number",
+              "valueUnit": "Wh"
+            },
+            "active-deepfreezer-latest": {
+              "code": "seqFind('last','active-deepfreezer-changes', 'true', 'at')",
+              "name": "Letzter Start: Gefrierschrank kühlt",
+              "valueType": "date"
+            },
+            "inactive-deepfreezer-latest": {
+              "code": "seqFind('last','active-deepfreezer-changes', 'false', 'at')",
+              "name": "Letztes Ende: Gefrierschrank kühlt",
+              "valueType": "date"
+            },
+            "duration-active-deepfreezer": {
+              "code": "tmp.end = get('inactive-deepfreezer-latest'); tmp.start = get('active-deepfreezer-latest'); tmp.duration = isDef(tmp.start) and isDef(tmp.end) ? tmp.end - tmp.start : undefined; isDef(tmp.duration) ? max(tmp.duration, 0) / (1000 * 60) : undefined",
+              "name": "Letzte Kühldauer Gefrierschrank",
+              "valueType": "number",
+              "valueUnit": "min"
+            }
+          }
+        }
+      ]
+    },
+    "freezers-control": {
+      "id": "freezers-control",
+      "autoStart": true,
+      "controls": [
+        {
+          "type": "sys-freezers-control",
+          "input": {
+            "power-available": "power-balance",
+            "relay-freezer-01": "relay-deepfreezer",
+            "relay-freezer-02": "relay-freezer-2",
+            "on-off-freezer-01": "active-deepfreezer",
+            "on-off-freezer-02": "active-freezer-2"
+          },
+          "output": {
+            "relay-freezer-01": {
+              "when": "never",
+              "device": "shelly-2-5-01",
+              "datapoint": "relay-control-deepfreezer"
+            },
+            "relay-freezer-02": {
+              "when": "part-end",
+              "device": "shelly-2-5-01",
+              "datapoint": "relay-control-freezer-2"
+            }
+          }
+        }
+      ]
+    },
+    "test-manual-control": {
+      "id": "test-manual-control",
+      "autoStart": true,
+      "actions": {
+        "test-counter-increase": {
+          "id": "test-counter-increase",
+          "name": "Test: counter++",
+          "execution": [
+            {
+              "type": "increase",
+              "source": "target",
+              "target": {
+                "device": "server-mqtt",
+                "datapoint": "castle-ac-dc/test/counter"
+              }
+            }
+          ]
+        }
+      },
+      "controls": [
+        {
+          "type": "sys-action",
+          "input": {},
+          "output": {}
+        }
+      ]
+    },
+    "db-logger": {
+      "id": "db-logger",
+      "autoStart": true,
+      "persistControl": [
+        {
+          "to": "serverPersistence",
+          "into": "datapoint-control-log",
+          "datapoints": {
+            "shelly-2-5-01": [
+              "relay-control-freezer-2",
+              "relay-control-deepfreezer"
+            ]
+          }
+        }
+      ],
+      "persistState": [
+        {
+          "to": "serverPersistence",
+          "into": "datapoint-log",
+          "datapoints": [
+            "relay-deepfreezer",
+            "relay-freezer-1",
+            "relay-freezer-2",
+            "active-deepfreezer",
+            "active-freezer-1",
+            "active-freezer-2",
+            "power-freezers",
+            "power-freezer-1",
+            "power-inverter",
+            "power-balance",
+            "energy-counter-freezer-1",
+            "energy-counter-freezer-2",
+            "energy-counter-deepfreezer",
+            "voltage-cellar",
+            "inner-temperature@shelly-2-5-01",
+            "inner-temperature@shelly-1-pm-01",
+            "inner-temperature@shelly-1-pm-02",
+            "energy-inverter-last-60-minutes"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -14,7 +14,7 @@
 /client
 
 # private data
-/public/config/local-config.json
+/public/config/private-local-config.json
 /public/config/private-config.json
 /public/config/private-setup-config.json
 
