@@ -7,7 +7,7 @@ import {
   LocalDatapoint,
   SimulationDeviceTypeId,
   SimulationSpec,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { DatacollectorPart } from "../engines/data-collector/Types.mjs";
 import { EngineContextConsumer } from "../engines/Types.mjs";
 import { BosswerkMi600 } from "./bosswerkMi600/Types.mjs";

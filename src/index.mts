@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import { createServer } from "http";
-import { Configuration } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { Configuration } from "jm-castle-ac-dc-types";
 import {
   configFilePath,
   readJsonFile,

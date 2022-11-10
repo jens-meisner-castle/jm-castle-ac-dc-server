@@ -8,7 +8,7 @@ import {
   DeviceStatus,
   LocalDatapoint,
   LocalDatapointId,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { EngineContextConsumer } from "../engines/Types.mjs";
 import { DeviceType, supportedDeviceTypes } from "./DeviceTypes.mjs";
 

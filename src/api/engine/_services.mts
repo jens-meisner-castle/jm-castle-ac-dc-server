@@ -5,7 +5,7 @@ import {
   getStrictSingleQueryParametersSchema,
 } from "../../json-schema/parameters.mjs";
 import { getCurrentSystem } from "../../system/status/System.mjs";
-import { SerializableEngine } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { SerializableEngine } from "jm-castle-ac-dc-types";
 import { ApiService } from "../Types.mjs";
 
 const allServices: ApiService[] = [];

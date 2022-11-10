@@ -2,7 +2,7 @@ import {
   ActionSpec,
   ControlPartSpec,
   UniqueDatapoint,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { ControlContext } from "../../ControlContext.mjs";
 import { ControlPartType } from "../../ControlPartTypes.mjs";
 import { EngineContext } from "../../EngineContext.mjs";

@@ -3,7 +3,7 @@ import {
   Row_DatapointControlLog,
   Row_DatapointLog,
   SelectResponse,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { ControlContext } from "../engines/ControlContext.mjs";
 import { EngineContext } from "../engines/EngineContext.mjs";
 import { PersistPart } from "../engines/persist/Types.mjs";

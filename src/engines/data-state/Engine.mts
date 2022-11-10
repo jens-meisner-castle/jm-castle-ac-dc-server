@@ -1,4 +1,4 @@
-import { SerializableEngine } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { SerializableEngine } from "jm-castle-ac-dc-types";
 import { EngineContext } from "../EngineContext.mjs";
 import { Datastate, Engine, EngineContextConsumer } from "../Types.mjs";
 import { DatastateEvent, DatastatePart } from "./Types.mjs";

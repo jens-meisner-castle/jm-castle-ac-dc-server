@@ -1,4 +1,4 @@
-import { ActionSpec } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { ActionSpec } from "jm-castle-ac-dc-types";
 import { ControlContext } from "../ControlContext.mjs";
 import { EngineContext } from "../EngineContext.mjs";
 

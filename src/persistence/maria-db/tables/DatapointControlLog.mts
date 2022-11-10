@@ -1,4 +1,4 @@
-import { Table } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { Table } from "jm-castle-ac-dc-types";
 
 export const TableDatapointControlLog: Table = {
   id: "datapoint_control_log",

@@ -1,4 +1,4 @@
-import { SimulationDeviceTypeId } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { SimulationDeviceTypeId } from "jm-castle-ac-dc-types";
 import { makeDatacollectorPart as makeSimulationPart } from "../../../engines/data-collector/parts/Simulation.mjs";
 import { DatacollectorPart } from "../../../engines/data-collector/Types.mjs";
 import { DeviceInstance } from "../../DeviceInstance.mjs";

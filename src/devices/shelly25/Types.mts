@@ -1,4 +1,4 @@
-import { LocalDatapoint } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { LocalDatapoint } from "jm-castle-ac-dc-types";
 import { makeDatacollectorPart } from "../../engines/data-collector/parts/RestfulDevice.mjs";
 import { DeviceType } from "../DeviceTypes.mjs";
 import {

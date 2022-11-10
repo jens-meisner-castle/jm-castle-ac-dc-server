@@ -1,4 +1,4 @@
-import { PersistentRow } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { PersistentRow } from "jm-castle-ac-dc-types";
 
 export interface Filter_LoggedAt_FromTo_Seconds {
   logged_at_from: number;

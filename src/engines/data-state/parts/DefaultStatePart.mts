@@ -1,4 +1,4 @@
-import { Datapoint } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { Datapoint } from "jm-castle-ac-dc-types";
 import { DateTime } from "luxon";
 import { CastleAcDc } from "../../../system/status/System.mjs";
 import { getDateFormat } from "../../../utils/Format.mjs";

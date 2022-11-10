@@ -3,7 +3,7 @@ import {
   DatapointState,
   DurationUnits,
   UniqueDatapoint,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { Duration, DurationLikeObject } from "luxon";
 import { EngineContext } from "../../EngineContext.mjs";
 import { DatastatePart, DatastatePartRunResponse } from "../Types.mjs";

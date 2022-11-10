@@ -1,8 +1,4 @@
-import {
-  SystemSetupStatus,
-  Table,
-  TableStatus,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+import { SystemSetupStatus, Table, TableStatus } from "jm-castle-ac-dc-types";
 import {
   AllTables,
   MariaDbClient,

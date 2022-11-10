@@ -1,4 +1,4 @@
-import { LuxonKey } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { LuxonKey } from "jm-castle-ac-dc-types";
 
 export const getDateFormat = (level: LuxonKey): string => {
   switch (level) {

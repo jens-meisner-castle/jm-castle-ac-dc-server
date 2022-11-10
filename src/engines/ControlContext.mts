@@ -5,7 +5,7 @@ import {
   DatapointTargetSpec,
   DeviceControlRequest,
   SerializableControlContext,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 
 export class ControlContext {
   constructor(

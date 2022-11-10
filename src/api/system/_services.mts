@@ -1,4 +1,4 @@
-import { UniqueDatapoint } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { UniqueDatapoint } from "jm-castle-ac-dc-types";
 import { getOptionalSingleQueryParametersSchema } from "../../json-schema/parameters.mjs";
 import { executeSetup } from "../../system/setup/ExecuteSetup.mjs";
 import { getSystemSetupStatus } from "../../system/setup/Status.mjs";

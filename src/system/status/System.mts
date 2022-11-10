@@ -28,7 +28,7 @@ import {
   SystemStatus,
   UniqueDatapoint,
   ValueTypes,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { DateTime } from "luxon";
 import {
   configFilePath,

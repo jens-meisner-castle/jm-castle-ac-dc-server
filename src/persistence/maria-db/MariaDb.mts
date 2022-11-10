@@ -7,7 +7,7 @@ import {
   Row_DatapointControlLog,
   Row_DatapointLog,
   SerializableEngine,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { createPool, Pool } from "mariadb";
 import { ControlContext } from "../../engines/ControlContext.mjs";
 import { EngineContext } from "../../engines/EngineContext.mjs";

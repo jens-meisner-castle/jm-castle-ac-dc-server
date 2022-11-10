@@ -1,13 +1,13 @@
 {
   "name": "jm-castle-ac-dc-server",
-  "version": "0.7.3",
+  "version": "0.8.0",
   "type": "module",
   "main": "dist/index.mjs",
   "private": false,
   "scripts": {
     "prebuild": "eslint \"./src/**\"",
     "build": "tsc --project tsconfig.json",
-    "start": "node ./dist/index.mjs --experimental-specifier-resolution=node",
+    "start": "node ./dist/index.mjs",
     "dev": "nodemon --ext '*.mts' -x \"npm run build && npm run start \"",
     "dev:serve": "cross-env NODE_ENV=development ts-node-dev --inspect=9229 --nolazy --respawn ./src -r ts-node/register src/."
   },
@@ -40,7 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.23.1",
-    "jm-castle-ac-dc-types": "^0.7.1",
+    "jm-castle-ac-dc-types": "^0.8.0",
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
     "ts-node": "^10.9.1",

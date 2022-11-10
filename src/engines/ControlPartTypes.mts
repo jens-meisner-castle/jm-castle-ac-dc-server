@@ -4,7 +4,7 @@ import {
   ControlPartTypeId,
   Datapoint,
   UniqueDatapoint,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { ActionExecutionType } from "./control/parts/ActionExecution.mjs";
 import { FreezersControlType } from "./control/parts/FreezersControl.mjs";
 import { ControlPart } from "./control/Types.mjs";

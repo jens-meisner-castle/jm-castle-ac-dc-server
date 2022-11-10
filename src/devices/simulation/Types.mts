@@ -2,7 +2,7 @@ import {
   DatapointState,
   DeviceStatus,
   EngineControlResponse,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { DateTime, Duration } from "luxon";
 
 export interface Simulation {

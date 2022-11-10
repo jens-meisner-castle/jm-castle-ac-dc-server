@@ -6,7 +6,7 @@ import {
   DeviceTypeId,
   SimulationPreviewResponse,
   UniqueDatapoint,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { DateTime, Duration } from "luxon";
 import { getSimulationAtArray } from "../../utils/DateUtils.mjs";
 import { DeviceInstance } from "../DeviceInstance.mjs";

@@ -1,4 +1,4 @@
-import { ExecuteSetupResponse } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { ExecuteSetupResponse } from "jm-castle-ac-dc-types";
 import {
   AllTables,
   MariaDbClient,

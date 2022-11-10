@@ -3,7 +3,7 @@ import {
   Device,
   DeviceStatus,
   EngineControlResponse,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { DateTime } from "luxon";
 import { readJsonFile } from "../../../configuration/Configuration.mjs";
 import { getUrl } from "../Status.mjs";

@@ -4,7 +4,7 @@ import {
   QueryParametersSchema,
   SerializableDeviceType,
   SerializableService,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 
 export interface ApiService {
   url: string;

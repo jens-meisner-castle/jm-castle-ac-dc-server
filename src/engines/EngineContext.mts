@@ -3,7 +3,7 @@ import {
   DatapointState,
   SequenceState,
   UniqueDatapoint,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 
 export type ContextDatapoints = Record<
   string,

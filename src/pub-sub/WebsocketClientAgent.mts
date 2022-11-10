@@ -5,7 +5,7 @@ import {
   msg_publish,
   msg_welcome,
   WsMessage,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { WebSocket } from "ws";
 import {
   ControlContextConsumer,

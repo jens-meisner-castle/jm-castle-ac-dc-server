@@ -3,7 +3,7 @@ import {
   Device,
   DeviceControlResponse,
   DeviceStatus,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import fetch, { RequestInit } from "node-fetch";
 import { DeviceInstance } from "../DeviceInstance.mjs";
 import {

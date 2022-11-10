@@ -1,4 +1,4 @@
-import { Datapoint, LocalDatapoint } from "jm-castle-ac-dc-types/dist/All.mjs";
+import { Datapoint, LocalDatapoint } from "jm-castle-ac-dc-types";
 
 export const deviceDatapointsIntermediate = (
   localDps: Record<string, LocalDatapoint>

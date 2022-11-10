@@ -3,7 +3,7 @@ import {
   DeviceControlResponse,
   EngineControlResponse,
   SerializableEngine,
-} from "jm-castle-ac-dc-types/dist/All.mjs";
+} from "jm-castle-ac-dc-types";
 import { CastleAcDc } from "../../system/status/System.mjs";
 import { ControlContext } from "../ControlContext.mjs";
 import { EngineContext } from "../EngineContext.mjs";
