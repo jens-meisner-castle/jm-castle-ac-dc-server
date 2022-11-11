@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "es2022",
     "esModuleInterop": true,
     "typeRoots": ["node_modules/@types"],
     "noImplicitAny": true,
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "sourceMap": true,
     "declaration": false,
     "outDir": "dist",
     "baseUrl": "./",
-    "lib": ["ES2021", "dom"],
+    "lib": ["ES6", "dom"],
     "skipLibCheck": true
   },
   "include": ["src/**/*"],
