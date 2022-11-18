@@ -41,7 +41,7 @@ allServices.push({
       } else {
         res.send({
           error:
-            "This url needs query parameters: ...?logged_at_from=<ms of date>&logged_at_to=<ms of date>",
+            "This url needs query parameters: ...?logged_at_from=<seconds of date>&logged_at_to=<seconds of date>",
         });
       }
     } catch (error) {

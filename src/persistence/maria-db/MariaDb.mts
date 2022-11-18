@@ -163,6 +163,8 @@ export class MariaDbClient implements Persistence, Engine {
   private durations = { total: 0, lapStart: 0, lapEnd: 0 };
   private errors: { lap: number; errors: string[] }[] = [];
   private parts: PersistencePart[] = [];
+  private handlePoolError = (error: Error) =>
+    console.error("Received error from database pool: " + error.toString());
   public type = () => "maria-db";
   public datapoint_log = {
     makePersistPart: (...datapoints: string[]) => {
@@ -253,6 +255,9 @@ export class MariaDbClient implements Persistence, Engine {
         decimalAsNumber: true,
       });
     }
+    // eslint-disable-next-line
+    // @ts-ignore
+    this.databasePool.on("error", this.handlePoolError);
     return this.databasePool;
   };
   public getSetupPool = () => {

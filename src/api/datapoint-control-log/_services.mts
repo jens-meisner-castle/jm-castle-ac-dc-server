@@ -8,8 +8,8 @@ allServices.push({
   url: "/datapoint-control-log/select",
   method: "GET",
   parameters: getQueryParametersSchema(
-    ["logged_at_from", "integer", true, "Interval start"],
-    ["logged_at_to", "integer", true, "Interval end"]
+    ["logged_at_from", "integer", true, "Interval start (in seconds)"],
+    ["logged_at_to", "integer", true, "Interval end (in seconds)"]
   ),
   name: "Select rows by interval.",
   handler: async (req, res) => {
@@ -41,7 +41,7 @@ allServices.push({
       } else {
         res.send({
           error:
-            "This url needs query parameters: ...?logged_at_from=<ms of date>&logged_at_to=<ms of date>",
+            "This url needs query parameters: ...?logged_at_from=<seconds of date>&logged_at_to=<seconds of date>",
         });
       }
     } catch (error) {

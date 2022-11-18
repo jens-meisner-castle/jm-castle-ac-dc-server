@@ -13,6 +13,8 @@ import {
   setCurrentSystem,
 } from "./system/status/System.mjs";
 
+const DefaultPort = 53000;
+
 const normalizePort = (val: string) => {
   const port = parseInt(val, 10);
   if (isNaN(port)) {
@@ -31,7 +33,7 @@ const onListening = () => {
   const bind =
     typeof addr === "string"
       ? "pipe " + addr
-      : "port " + (addr ? addr.port : 53000);
+      : "port " + (addr ? addr.port : DefaultPort);
   console.log("Listening on " + bind);
 };
 
@@ -64,7 +66,7 @@ const system = new CastleAcDc(configuration);
 setCurrentSystem(system);
 await system.start();
 
-const port = normalizePort(process.env.PORT || "53000");
+const port = normalizePort(process.env.PORT || DefaultPort.toString());
 
 const app = newExpressApp(port);
 
