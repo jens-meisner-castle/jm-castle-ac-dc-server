@@ -1,5 +1,6 @@
 import { config } from "dotenv";
-import { createServer } from "http";
+import fs from "fs";
+import { createServer } from "https";
 import { Configuration } from "jm-castle-ac-dc-types";
 import {
   configFilePath,
@@ -70,7 +71,13 @@ const port = normalizePort(process.env.PORT || DefaultPort.toString());
 
 const app = newExpressApp(port);
 
-const server = createServer(app);
+const server = createServer(
+  {
+    key: fs.readFileSync("client/cert/DESKTOP-61MUS1J.key"),
+    cert: fs.readFileSync("client/cert/DESKTOP-61MUS1J.crt"),
+  },
+  app
+);
 
 new PubSubWebsocketServer(server, getCurrentSystem);
 
