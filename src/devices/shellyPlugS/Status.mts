@@ -1,7 +1,7 @@
 import { DatapointState, DeviceStatus } from "jm-castle-ac-dc-types";
 import fetch, { RequestInit } from "node-fetch";
 import { DeviceInstance } from "../DeviceInstance.mjs";
-import { Shelly1PMDatapointId, Shelly1PMStatus } from "./Types.mjs";
+import { ShellyPlugSDatapointId, ShellyPlugSStatus } from "./Types.mjs";
 
 export const fetchStatusFromDevice = async (
   deviceInstance: DeviceInstance
@@ -16,10 +16,10 @@ export const fetchStatusFromDevice = async (
     const url = `${deviceInstance.getDevice().api}/status`;
     const response = await fetch(url, options);
     const responseObj = await response.json();
-    const shellyStatus = responseObj as Shelly1PMStatus;
+    const shellyStatus = responseObj as ShellyPlugSStatus;
     if (!shellyStatus || !Object.keys(shellyStatus).length) {
       const status: DeviceStatus = {
-        error: "Received empty status from shelly1PM.",
+        error: "Received empty status from shellyPlugS.",
         responsive: true,
         accessedAt,
         datapoints: {},
@@ -28,10 +28,6 @@ export const fetchStatusFromDevice = async (
     }
     const power = getCurrentPower(shellyStatus);
     const innerTemperature = getInnerTemperature(shellyStatus);
-    const externalTemperatures = getExternalTemperatures(shellyStatus);
-    const externalTemperature1 = externalTemperatures["0"];
-    const externalTemperature2 = externalTemperatures["1"];
-    const externalTemperature3 = externalTemperatures["2"];
     const energyCounterTotal = getEnergyCounterTotal(shellyStatus);
     const energySumsPrevMinutes = getEnergySumsPreviousMinutes(shellyStatus);
     const energySumPrevMinute1 =
@@ -47,25 +43,26 @@ export const fetchStatusFromDevice = async (
         ? energySumsPrevMinutes[2]
         : undefined;
     const isRelayOn = getIsRelayOn(shellyStatus);
-    const datapoints: Partial<Record<Shelly1PMDatapointId, DatapointState>> = {
-      power: { id: "power", valueNum: power, at: accessedAt },
-      "inner-temperature": {
-        id: "inner-temperature",
-        valueNum: innerTemperature,
-        at: accessedAt,
-      },
-      "energy-counter-total": {
-        id: "energy-counter-total",
-        valueNum: energyCounterTotal,
-        at: accessedAt,
-      },
-      "relay-state": {
-        id: "relay-state",
-        valueNum: isRelayOn ? 1 : 0,
-        valueString: isRelayOn ? "true" : "false",
-        at: accessedAt,
-      },
-    };
+    const datapoints: Partial<Record<ShellyPlugSDatapointId, DatapointState>> =
+      {
+        power: { id: "power", valueNum: power, at: accessedAt },
+        "inner-temperature": {
+          id: "inner-temperature",
+          valueNum: innerTemperature,
+          at: accessedAt,
+        },
+        "energy-counter-total": {
+          id: "energy-counter-total",
+          valueNum: energyCounterTotal,
+          at: accessedAt,
+        },
+        "relay-state": {
+          id: "relay-state",
+          valueNum: isRelayOn ? 1 : 0,
+          valueString: isRelayOn ? "true" : "false",
+          at: accessedAt,
+        },
+      };
     if (typeof energySumPrevMinute1 === "number") {
       datapoints["energy-sum-prev-minute-1"] = {
         id: "energy-sum-prev-minute-1",
@@ -87,27 +84,6 @@ export const fetchStatusFromDevice = async (
         at: accessedAt,
       };
     }
-    if (typeof externalTemperature1 === "number") {
-      datapoints["external-temperature-1"] = {
-        id: "external-temperature-1",
-        valueNum: externalTemperature1,
-        at: accessedAt,
-      };
-    }
-    if (typeof externalTemperature2 === "number") {
-      datapoints["external-temperature-2"] = {
-        id: "external-temperature-2",
-        valueNum: externalTemperature2,
-        at: accessedAt,
-      };
-    }
-    if (typeof externalTemperature3 === "number") {
-      datapoints["external-temperature-3"] = {
-        id: "external-temperature-3",
-        valueNum: externalTemperature3,
-        at: accessedAt,
-      };
-    }
     const status: DeviceStatus = { responsive: true, accessedAt, datapoints };
     return status;
   } catch (error) {
@@ -121,24 +97,26 @@ export const fetchStatusFromDevice = async (
   }
 };
 
-export const getIsRelayOn = (status: Shelly1PMStatus): boolean | undefined => {
+export const getIsRelayOn = (
+  status: ShellyPlugSStatus
+): boolean | undefined => {
   return status.relays?.length ? status.relays[0].ison : undefined;
 };
 
 export const getCurrentPower = (
-  status: Shelly1PMStatus
+  status: ShellyPlugSStatus
 ): number | undefined => {
   return status.meters?.length ? status.meters[0].power : undefined;
 };
 
 export const getEnergyCounterTotal = (
-  status: Shelly1PMStatus
+  status: ShellyPlugSStatus
 ): number | undefined => {
   return status.meters?.length ? status.meters[0].total : undefined;
 };
 
 export const getEnergySumsPreviousMinutes = (
-  status: Shelly1PMStatus
+  status: ShellyPlugSStatus
 ): number[] | undefined => {
   return status.meters?.length ? status.meters[0].counters : undefined;
 };
@@ -149,29 +127,13 @@ export const getEnergySumsPreviousMinutes = (
  * @returns [min, avg, max]
  */
 export const getPowerStatistics = (
-  status: Shelly1PMStatus
+  status: ShellyPlugSStatus
 ): number[] | undefined => {
   return status.meters?.length ? status.meters[0].counters : undefined;
 };
 
 export const getInnerTemperature = (
-  status: Shelly1PMStatus
+  status: ShellyPlugSStatus
 ): number | undefined => {
   return status.tmp.tC;
-};
-
-export const getExternalTemperatures = (
-  status: Shelly1PMStatus
-): Partial<Record<keyof typeof status.ext_temperature, number>> => {
-  const record: Partial<Record<keyof typeof status.ext_temperature, number>> =
-    {};
-  Object.keys(status.ext_temperature).forEach(
-    (k: keyof typeof status.ext_temperature) => {
-      const temperature = status.ext_temperature[k].tC;
-      if (typeof temperature === "number") {
-        record[k] = temperature;
-      }
-    }
-  );
-  return record;
 };

@@ -11,10 +11,10 @@ import {
   Shelly25RelayControlResponse,
   Shelly25Status,
 } from "./Types.mjs";
-export const fetchStatusFromDevice = (deviceInstance: DeviceInstance) =>
-  fetchStatus(deviceInstance.getDevice().api);
 
-export const fetchStatus = async (baseUrl: string): Promise<DeviceStatus> => {
+export const fetchStatusFromDevice = async (
+  deviceInstance: DeviceInstance
+): Promise<DeviceStatus> => {
   const accessedAt = Date.now();
   try {
     const options: RequestInit = {
@@ -22,7 +22,7 @@ export const fetchStatus = async (baseUrl: string): Promise<DeviceStatus> => {
       redirect: "follow",
       referrerPolicy: "origin-when-cross-origin",
     };
-    const url = `${baseUrl}/status`;
+    const url = `${deviceInstance.getDevice().api}/status`;
     const response = await fetch(url, options);
     const responseObj = await response.json();
     const shellyStatus = responseObj as Shelly25Status;
@@ -79,7 +79,7 @@ export const fetchStatus = async (baseUrl: string): Promise<DeviceStatus> => {
     return status;
   } catch (error) {
     const status: DeviceStatus = {
-      error: error.toString(),
+      error: `${deviceInstance.getDeviceId()}: ${error.toString()}`,
       responsive: false,
       accessedAt,
       datapoints: {},

@@ -254,10 +254,11 @@ export class MariaDbClient implements Persistence, Engine {
         connectionLimit: 10,
         decimalAsNumber: true,
       });
+      // eslint-disable-next-line
+      // @ts-ignore
+      this.databasePool.on("error", this.handlePoolError);
     }
-    // eslint-disable-next-line
-    // @ts-ignore
-    this.databasePool.on("error", this.handlePoolError);
+
     return this.databasePool;
   };
   public getSetupPool = () => {

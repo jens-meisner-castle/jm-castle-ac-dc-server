@@ -1,3 +1,4 @@
+import fs from "fs";
 import {
   CheckedConfiguration,
   Configuration,
@@ -116,6 +117,10 @@ export class CastleAcDc {
   private controls: Record<string, ControlEngine> = {};
   private engines: Record<string, Engine> = {};
 
+  private caCert: Buffer | null | undefined = undefined;
+  private serverCert: Buffer;
+  private serverKey: Buffer;
+
   public start = async () => {
     await this.setupMailSenders();
     if (this.defaultMailSender) {
@@ -135,6 +140,32 @@ export class CastleAcDc {
     await this.setupDevices();
     await this.setupEngines();
     await this.executeAutoStarts();
+  };
+
+  public getOwnPort = () => this.validConfig.system.port;
+
+  public getCACertificate = (): Buffer | null | undefined => {
+    if (this.caCert === undefined) {
+      const path = this.validConfig.system.certs.ca;
+      this.caCert = path ? fs.readFileSync(path) : null;
+    }
+    return this.caCert;
+  };
+
+  public getServerCertificate = () => {
+    if (!this.serverCert) {
+      const path = this.validConfig.system.certs.hostCert;
+      this.serverCert = fs.readFileSync(path);
+    }
+    return this.serverCert;
+  };
+
+  public getServerKey = () => {
+    if (!this.serverKey) {
+      const path = this.validConfig.system.certs.hostKey;
+      this.serverKey = fs.readFileSync(path);
+    }
+    return this.serverKey;
   };
 
   private disconnectFromAllDevices = async () => {
@@ -332,10 +363,47 @@ export class CastleAcDc {
     validConfig: Configuration,
     errors: string[]
   ): boolean => {
-    const { name } = spec;
+    const { name, host, port, certs } = spec;
     if (name && typeof name !== "string") {
       errors.push(
         `Bad system spec: If used the property "name" must have a string as value. Found type "${typeof name}".`
+      );
+      return false;
+    }
+    if (typeof host !== "string") {
+      errors.push(
+        `Bad system spec: The property "host" must have a string as value. Found type "${typeof name}".`
+      );
+      return false;
+    }
+    if (typeof port !== "number") {
+      errors.push(
+        `Bad system spec: The property "port" must have a number as value. Found type "${typeof name}".`
+      );
+      return false;
+    }
+    if (typeof certs !== "object") {
+      errors.push(
+        `Bad system spec: The property "certs" must have an object as value. Found type "${typeof name}".`
+      );
+      return false;
+    }
+    const { ca, hostCert, hostKey } = certs;
+    if (typeof ca !== "string") {
+      errors.push(
+        `Bad system spec: The property "ca" (within "certs") must have a string as value. Found type "${typeof name}".`
+      );
+      return false;
+    }
+    if (typeof hostCert !== "string") {
+      errors.push(
+        `Bad system spec: The property "hostCert" (within "certs") must have a string as value. Found type "${typeof name}".`
+      );
+      return false;
+    }
+    if (typeof hostKey !== "string") {
+      errors.push(
+        `Bad system spec: The property "hostKey" (within "certs") must have a string as value. Found type "${typeof name}".`
       );
       return false;
     }

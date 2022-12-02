@@ -129,6 +129,7 @@ export const getControlDatapoints = (
         ...localPoint,
       };
       publicControlDatapoints[devicePoint.localId] = devicePoint;
+      localPublicToLocalPrivateMap[devicePoint.localId] = localPoint.localId;
       globalPublicToLocalPrivateMap[devicePoint.id] = localPoint.localId;
     });
   } else {

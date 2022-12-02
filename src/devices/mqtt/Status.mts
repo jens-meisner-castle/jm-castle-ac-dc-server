@@ -1,6 +1,7 @@
 import {
   DatapointState,
   Device,
+  DeviceControlResponse,
   DeviceStatus,
   EngineControlResponse,
 } from "jm-castle-ac-dc-types";
@@ -9,7 +10,9 @@ import {
   Client,
   ClientSubscribeCallback,
   connect,
+  IClientPublishOptions,
   OnMessageCallback,
+  QoS,
 } from "mqtt";
 import {
   ContextDatapoints,
@@ -47,6 +50,14 @@ export const fetchStatusFromMqttClient = async (
   const client = await getOrStartMqttClient(deviceInstance);
   return await client.fetchStatus();
 };
+
+export const isQos = (qos: number | undefined): qos is QoS => {
+  return qos === 0 || qos === 1 || qos === 2;
+};
+
+export type PublishResponse =
+  | { success: true; error?: never }
+  | { success: false; error: string };
 
 export class MqttClient {
   constructor(deviceInstance: DeviceInstance) {
@@ -87,6 +98,52 @@ export class MqttClient {
     if (this.client && this.client.connected) {
       this.client.end(true);
     }
+  };
+
+  private publishTopic = async (
+    topic: string,
+    message: string,
+    options?: IClientPublishOptions
+  ): Promise<PublishResponse> => {
+    return new Promise((resolve, reject) => {
+      try {
+        const { qos } = options || {};
+        const usedQos: QoS = isQos(qos) ? qos : 0;
+        const usedOptions: IClientPublishOptions = {
+          ...(options || {}),
+          qos: usedQos,
+        };
+        this.client.publish(topic, message, usedOptions, (error?: Error) => {
+          if (error) {
+            resolve({ success: false, error: error.toString() });
+          } else {
+            resolve({ success: true });
+          }
+        });
+      } catch (error) {
+        resolve({ success: false, error: error.toString() });
+      }
+    });
+  };
+
+  public publish = async (
+    states: DatapointState[],
+    retain: boolean
+  ): Promise<PublishResponse> => {
+    const result = await Promise.all(
+      states.map((state) => {
+        const topic = state.id;
+        const message =
+          state.valueString ||
+          (typeof state.valueNum === "number" ? state.valueNum.toString() : "");
+        return this.publishTopic(topic, message, { retain });
+      })
+    );
+    const allErrors: string[] = [];
+    result.forEach((res) => res.error && allErrors.push(res.error));
+    return allErrors.length
+      ? { success: false, error: allErrors.join(" ") }
+      : { success: true };
   };
 
   private onMessageCallback: OnMessageCallback = (topic, payload) => {
@@ -196,3 +253,32 @@ export class MqttClient {
     }
   };
 }
+
+export const executeControlRequestOnDevice = async (
+  device: Device,
+  states: DatapointState[]
+): Promise<DeviceControlResponse> => {
+  try {
+    const mqttClient = getMqttClient(device);
+    if (!mqttClient) {
+      return {
+        success: false,
+        error: `Unable to execute control request for mqtt client ${device.id}. The client is not available.`,
+      };
+    }
+    const result = await mqttClient.publish(states, true);
+    const response: DeviceControlResponse = result.success
+      ? { success: true }
+      : {
+          success: false,
+          error: `Received error when publishing: ${result.error}`,
+        };
+    return response;
+  } catch (error) {
+    const response: DeviceControlResponse = {
+      error: error.toString(),
+      success: false,
+    };
+    return response;
+  }
+};

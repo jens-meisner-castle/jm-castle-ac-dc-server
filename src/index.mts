@@ -1,5 +1,4 @@
 import { config } from "dotenv";
-import fs from "fs";
 import { createServer } from "https";
 import { Configuration } from "jm-castle-ac-dc-types";
 import {
@@ -14,27 +13,12 @@ import {
   setCurrentSystem,
 } from "./system/status/System.mjs";
 
-const DefaultPort = 53000;
-
-const normalizePort = (val: string) => {
-  const port = parseInt(val, 10);
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-  return false;
-};
-
 const onListening = () => {
   const addr = server.address();
   const bind =
     typeof addr === "string"
       ? "pipe " + addr
-      : "port " + (addr ? addr.port : DefaultPort);
+      : "port " + (addr ? addr.port : "?");
   console.log("Listening on " + bind);
 };
 
@@ -67,14 +51,14 @@ const system = new CastleAcDc(configuration);
 setCurrentSystem(system);
 await system.start();
 
-const port = normalizePort(process.env.PORT || DefaultPort.toString());
+const port = system.getOwnPort();
 
 const app = newExpressApp(port);
 
 const server = createServer(
   {
-    key: fs.readFileSync("client/cert/DESKTOP-61MUS1J.key"),
-    cert: fs.readFileSync("client/cert/DESKTOP-61MUS1J.crt"),
+    key: system.getServerKey(),
+    cert: system.getServerCertificate(),
   },
   app
 );

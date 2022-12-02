@@ -5,6 +5,7 @@ import { EngineContextConsumer } from "../../engines/Types.mjs";
 import { DeviceInstance } from "../DeviceInstance.mjs";
 import { DeviceType } from "../DeviceTypes.mjs";
 import {
+  executeControlRequestOnDevice,
   fetchStatusFromMqttClient,
   getMqttClient,
   getOrStartMqttClient,
@@ -73,6 +74,7 @@ export const MqttClientType: DeviceType = {
   ],
   makeDatacollectorPart: makeMqttDatacollectorPart,
   fetchStatus,
+  executeControlRequest: executeControlRequestOnDevice,
   disconnectFromDevice,
   addDeviceEventConsumer,
 };

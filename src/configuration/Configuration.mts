@@ -11,12 +11,8 @@ const getVariable = (name: string) => {
   return value;
 };
 export const configFilePath = () => {
-  const nodeEnv = getVariable("NODE_ENV");
   const configFile = getVariable("CONFIG");
-  if (nodeEnv !== "development" && !configFile) {
-    throw new Error("Environment variable or argument CONFIG is missing!");
-  }
-  return configFile || "public/config/castle-ac-dc-config.json";
+  return configFile || "config/castle-ac-dc-config.json";
 };
 
 export function readJsonFile<T>(path: string): T {
