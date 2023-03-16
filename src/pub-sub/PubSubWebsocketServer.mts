@@ -37,11 +37,9 @@ export class PubSubWebsocketServer {
       this.removeAgent(newAgent);
     });
     this.clientAgents.push(newAgent);
-    console.log("clients: ", this.clientAgents.length);
   };
 
   private removeAgent = (agent: WebsocketClientAgent) => {
     this.clientAgents = this.clientAgents.filter((client) => client !== agent);
-    console.log("clients: ", this.clientAgents.length);
   };
 }

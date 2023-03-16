@@ -1,9 +1,9 @@
-import { SystemSetupStatus, Table, TableStatus } from "jm-castle-ac-dc-types";
+import { columns } from "jm-castle-mariadb";
+import { SystemSetupStatus, Table, TableStatus } from "jm-castle-types";
 import {
   AllTables,
   MariaDbClient,
 } from "../../persistence/maria-db/MariaDb.mjs";
-import { columns } from "../../persistence/maria-db/Table.mjs";
 import { getCurrentSystem } from "../status/System.mjs";
 
 export const getSystemSetupStatus = async (): Promise<SystemSetupStatus> => {
@@ -19,16 +19,28 @@ export const getSystemSetupStatus = async (): Promise<SystemSetupStatus> => {
   const mariaClient = persistence as unknown as MariaDbClient;
   const allTables: Table[] = [...AllTables];
   const allColumns = await Promise.all(
-    allTables.map((table) => columns(table, mariaClient))
+    allTables.map((table) =>
+      columns(table, mariaClient, mariaClient.getDatabaseName())
+    )
   );
   const tables: Record<string, TableStatus> = {};
+  const targetTables: Record<string, TableStatus> = {};
+
   allTables.forEach((table, i) => {
-    tables[table.id] = {
+    (targetTables[table.id] = {
       name: table.id,
       table: table,
-      isCreated: !!allColumns[i]?.result.length,
-    };
+      isCreated: true,
+      columns: table.columns,
+    }),
+      (tables[table.id] = {
+        name: table.id,
+        table: table,
+        isCreated: !!allColumns[i]?.result?.length,
+        columns: allColumns[i]?.result || [],
+      });
   });
   const database = { name: mariaClient.getDatabaseName(), tables };
-  return { database };
+  const software = { name: "castle-warehouse", tables: targetTables };
+  return { database, software };
 };

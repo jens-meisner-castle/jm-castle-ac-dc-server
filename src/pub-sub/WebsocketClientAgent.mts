@@ -51,18 +51,12 @@ export class WebsocketClientAgent {
   };
 
   private disconnectFromSystemDatastate = () => {
-    console.log(
-      `disconnecting client (id: ${this.id}) from system data state.`
-    );
     const consumer = this.datastateConsumer;
     this.datastateConsumer = undefined;
     this.system.removeConsumerOnDatastate(consumer);
   };
 
   private disconnectFromSystemControlHistory = () => {
-    console.log(
-      `disconnecting client (id: ${this.id}) from system control history.`
-    );
     const consumer = this.controlstateConsumer;
     this.controlstateConsumer = undefined;
     this.system.removeConsumerOnControlHistories(consumer);
@@ -72,7 +66,6 @@ export class WebsocketClientAgent {
     if (this.datastateConsumer) {
       return;
     }
-    console.log(`connecting client (id: ${this.id}) to system data state.`);
     const currentData = await this.system.getDatastateContent();
     this.cleanup.push(this.disconnectFromSystemDatastate);
     this.sendMessage(msg_publish("/system/data-state", currentData));
@@ -101,9 +94,6 @@ export class WebsocketClientAgent {
     if (this.controlstateConsumer) {
       return;
     }
-    console.log(
-      `connecting client (id: ${this.id}) to system control history.`
-    );
     const historyContent = await this.system.getControlstateContent();
     this.cleanup.push(this.disconnectFromSystemControlHistory);
     this.sendMessage(msg_publish("/system/control-history", historyContent));
@@ -136,7 +126,6 @@ export class WebsocketClientAgent {
   };
 
   private consumeMessage = (msg: WsMessage) => {
-    console.log("Consuming message: ", msg);
     const { method } = msg;
     switch (method) {
       case "welcome":

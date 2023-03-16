@@ -1,7 +1,17 @@
-import { Table } from "jm-castle-ac-dc-types";
+import { Table } from "jm-castle-types";
 
 export const TableDatapointControlLog: Table = {
   id: "datapoint_control_log",
-  columnsFragment:
-    "dataset_id INT PRIMARY KEY AUTO_INCREMENT, device_id VARCHAR(100) NOT NULL, datapoint_id VARCHAR(100) NOT NULL, value_num DECIMAL(11,2), value_string VARCHAR(1000), executed TINYINT(1), success TINYINT(1), logged_at INT, logged_at_ms SMALLINT",
+  primaryKey: "PRIMARY KEY(dataset_id)",
+  columns: [
+    { name: "dataset_id", type: "int(11)", autoIncrement: true },
+    { name: "device_id", type: "varchar(100)" },
+    { name: "datapoint_id", type: "varchar(100)" },
+    { name: "value_num", type: "decimal(11,2)" },
+    { name: "value_string", type: "varchar(1000)" },
+    { name: "executed", type: "tinyint(1)" },
+    { name: "success", type: "tinyint(1)" },
+    { name: "logged_at", type: "int(11)" },
+    { name: "logged_at_ms", type: "smallint(6)" },
+  ],
 };

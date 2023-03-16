@@ -1,9 +1,8 @@
 import {
-  InsertResponse,
   Row_DatapointControlLog,
   Row_DatapointLog,
-  SelectResponse,
 } from "jm-castle-ac-dc-types";
+import { InsertResponse, SelectResponse } from "jm-castle-types";
 import { ControlContext } from "../engines/ControlContext.mjs";
 import { EngineContext } from "../engines/EngineContext.mjs";
 import { PersistPart } from "../engines/persist/Types.mjs";
@@ -13,7 +12,9 @@ export interface Persistence {
   type: () => string;
   datapoint_log: {
     makePersistPart: (...datapoints: string[]) => PersistPart<EngineContext>;
-    insertNow: (values: Row_DatapointLog) => Promise<InsertResponse>;
+    insertNow: (
+      values: Row_DatapointLog
+    ) => Promise<InsertResponse<Row_DatapointLog>>;
     select: (
       filter: Filter_LoggedAt_FromTo_Seconds
     ) => Promise<SelectResponse<Row_DatapointLog>>;
@@ -22,7 +23,9 @@ export interface Persistence {
     makePersistPart: (
       datapoints: Record<string, string[]>
     ) => PersistPart<ControlContext>;
-    insertNow: (values: Row_DatapointControlLog) => Promise<InsertResponse>;
+    insertNow: (
+      values: Row_DatapointControlLog
+    ) => Promise<InsertResponse<Row_DatapointControlLog>>;
     select: (
       filter: Filter_LoggedAt_FromTo_Seconds
     ) => Promise<SelectResponse<Row_DatapointControlLog>>;

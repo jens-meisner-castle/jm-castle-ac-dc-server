@@ -1,8 +1,5 @@
-import {
-  InsertResponse,
-  Row_DatapointControlLog as Row,
-  SelectResponse,
-} from "jm-castle-ac-dc-types";
+import { Row_DatapointControlLog as Row } from "jm-castle-ac-dc-types";
+import { InsertResponse, SelectResponse } from "jm-castle-types";
 import { MariaDbClient } from "../MariaDb.mjs";
 import { TableDatapointControlLog } from "../tables/DatapointControlLog.mjs";
 import { Filter_LoggedAt_FromTo_Seconds, valuesClause } from "./QueryUtils.mjs";
@@ -14,7 +11,7 @@ const table = TableDatapointControlLog;
 export const insertNow = async (
   values: Row,
   client: MariaDbClient
-): Promise<InsertResponse> => {
+): Promise<InsertResponse<Row>> => {
   const now = Date.now();
   const logged_at = Math.floor(now / 1000);
   const logged_at_ms = Math.floor((now / 1000 - logged_at) * 1000);
@@ -24,13 +21,12 @@ export const insertNow = async (
 export const insert = async (
   values: Row,
   client: MariaDbClient
-): Promise<InsertResponse> => {
+): Promise<InsertResponse<Row>> => {
   try {
     const cmd = `INSERT INTO ${table.id} SET${valuesClause(values)}`;
     const response: any = await client.getDatabasePool().query(cmd);
-    console.log(cmd);
     const { affectedRows } = response || {};
-    return { result: { cmd, affectedRows } };
+    return { result: { cmd, affectedRows, data: values } };
   } catch (error) {
     return { error: error.toString() };
   }

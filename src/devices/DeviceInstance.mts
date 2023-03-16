@@ -9,6 +9,7 @@ import {
   LocalDatapoint,
   LocalDatapointId,
 } from "jm-castle-ac-dc-types";
+import { DateTime } from "luxon";
 import { EngineContextConsumer } from "../engines/Types.mjs";
 import { DeviceType, supportedDeviceTypes } from "./DeviceTypes.mjs";
 
@@ -193,6 +194,8 @@ export class DeviceInstance {
   private deviceType: DeviceType;
   private mapDatapointIds: DatapointIdMapping;
   private mapControlDatapointIds: DatapointIdMapping;
+  private previousStatus: DeviceStatus;
+  private consecutiveSuppressedPeaks: Record<string, number> = {};
   /**
    * Pro öffentlicher (also evtl. mapped) local id: DeviceDatapoint
    */
@@ -258,14 +261,55 @@ export class DeviceInstance {
 
   public fetchDeviceStatus = async (): Promise<DeviceStatus> => {
     const status = await this.deviceType.fetchStatus(this);
+    const { suppressPeaks } = this.device;
     const { datapoints: states, error, responsive, accessedAt } = status;
     const mappedDatapoints: Record<string, DatapointState> = {};
     states &&
       Object.entries(states).forEach(([k, state]) => {
+        const { valueNum: fetchedValueNum } = state;
+        const { max } = (suppressPeaks && suppressPeaks[k]) || {};
+        let stateValueNum: number | undefined = fetchedValueNum;
+        if (
+          typeof max === "number" &&
+          this.previousStatus &&
+          typeof fetchedValueNum === "number" &&
+          fetchedValueNum > max
+        ) {
+          if ((this.consecutiveSuppressedPeaks[k] || 0) < 3) {
+            // Verwende den vorherigen Wert, wenn der aktuelle einer der ersten 3 peaks ist
+            console.log(
+              `suppressed peak ${fetchedValueNum} for value ${k}, consecutive: ${
+                (this.consecutiveSuppressedPeaks[k] || 0) + 1
+              }, at: ${DateTime.now().toFormat("yyyy-LL-dd hh:mm:ss")}`
+            );
+            const { datapoints } = this.previousStatus;
+            const previousValueNum = datapoints[k]?.valueNum;
+            if (
+              typeof previousValueNum === "number" &&
+              previousValueNum <= max
+            ) {
+              console.log(`Using previous: ${previousValueNum}`);
+              stateValueNum = previousValueNum;
+              this.consecutiveSuppressedPeaks[k] =
+                (this.consecutiveSuppressedPeaks[k] || 0) + 1;
+              status.datapoints[k] = {
+                ...status.datapoints[k],
+                valueNum: stateValueNum,
+              };
+            }
+          }
+        } else {
+          this.consecutiveSuppressedPeaks[k] = 0;
+        }
         const datapoint = this.getPublicDatapointForPrivateLocalId(k);
         const mappedKey = datapoint ? datapoint.id : k;
-        mappedDatapoints[mappedKey] = { ...state, id: mappedKey };
+        mappedDatapoints[mappedKey] = {
+          ...state,
+          valueNum: stateValueNum,
+          id: mappedKey,
+        };
       });
+    this.previousStatus = status;
     return { error, responsive, accessedAt, datapoints: mappedDatapoints };
   };
 

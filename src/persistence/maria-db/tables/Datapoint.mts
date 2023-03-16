@@ -1,7 +1,14 @@
-import { Table } from "jm-castle-ac-dc-types";
+import { Table } from "jm-castle-types";
 
 export const TableDatapoint: Table = {
   id: "datapoint",
-  columnsFragment:
-    "datapoint_id VARCHAR(100) PRIMARY KEY, name VARCHAR(100), value_unit VARCHAR(50), value_type VARCHAR(50), description VARCHAR(1000), meaning VARCHAR(100)",
+  primaryKey: "PRIMARY KEY(datapoint_id)",
+  columns: [
+    { name: "datapoint_id", type: "varchar(100)" },
+    { name: "name", type: "varchar(100)" },
+    { name: "value_unit", type: "varchar(50)" },
+    { name: "value_type", type: "varchar(50)" },
+    { name: "description", type: "varchar(1000)" },
+    { name: "meaning", type: "varchar(100)" },
+  ],
 };

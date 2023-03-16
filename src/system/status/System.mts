@@ -30,6 +30,7 @@ import {
   UniqueDatapoint,
   ValueTypes,
 } from "jm-castle-ac-dc-types";
+import { getDateFormat } from "jm-castle-types";
 import { DateTime } from "luxon";
 import {
   configFilePath,
@@ -76,7 +77,6 @@ import { getMailSender } from "../../mail/Mail.mjs";
 import { MailSender } from "../../mail/Types.mjs";
 import { getPersistence } from "../../persistence/Persistence.mjs";
 import { Persistence } from "../../persistence/Types.mjs";
-import { getDateFormat } from "../../utils/Format.mjs";
 
 let CurrentSystem: CastleAcDc | undefined = undefined;
 

@@ -1,9 +1,14 @@
 import { UniqueDatapoint } from "jm-castle-ac-dc-types";
+import { executeSetup } from "jm-castle-mariadb";
 import { getOptionalSingleQueryParametersSchema } from "../../json-schema/parameters.mjs";
-import { executeSetup } from "../../system/setup/ExecuteSetup.mjs";
+import {
+  AllTables,
+  MariaDbClient,
+} from "../../persistence/maria-db/MariaDb.mjs";
 import { getSystemSetupStatus } from "../../system/setup/Status.mjs";
 import { getCurrentSystem } from "../../system/status/System.mjs";
-import { ApiService } from "../Types.mjs";
+import { ApiService, ApiServiceResponse } from "../Types.mjs";
+import { withDefaultPersistence } from "../Utils.mjs";
 const allServices: ApiService[] = [];
 
 allServices.push({
@@ -31,7 +36,10 @@ allServices.push({
   handler: async (req, res) => {
     try {
       const status = await getSystemSetupStatus();
-      res.send({ response: { status } });
+      const apiResponse: ApiServiceResponse<typeof status> = {
+        response: status,
+      };
+      return res.send(apiResponse);
     } catch (error) {
       res.send({ error: error.toString() });
     }
@@ -43,8 +51,23 @@ allServices.push({
   name: "Do a system setup. This is a no-op if the system is already setup.",
   handler: async (req, res) => {
     try {
-      const setup = await executeSetup();
-      res.send({ response: { setup } });
+      withDefaultPersistence(res, async (persistence) => {
+        if (persistence.type() !== "maria-db") {
+          throw new Error(
+            "Currently is only mariadb as default persistentce possible."
+          );
+        }
+        const mariaClient = persistence as MariaDbClient;
+        const setup = await executeSetup(
+          mariaClient,
+          mariaClient.getDatabaseName(),
+          AllTables
+        );
+        const apiResponse: ApiServiceResponse<typeof setup> = {
+          response: setup,
+        };
+        return res.send(apiResponse);
+      });
     } catch (error) {
       res.send({ error: error.toString() });
     }

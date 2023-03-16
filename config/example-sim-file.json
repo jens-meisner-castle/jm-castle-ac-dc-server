@@ -1,0 +1,17 @@
+{"devices": {
+    "sim-solari-01": {
+        "id": "sim-solari-01",
+        "ipAddress": "internal",
+        "webInterface": "internal",
+        "api": "internal://sim?file=sim/solari-01-power.json",
+        "type": "sim-file",
+        "datapoints": {
+          "power": {
+            "localId": "power",
+            "name": "Aktuelle Leistung",
+            "valueType": "number",
+            "valueUnit": "W"
+          }
+        }
+      }
+}}

@@ -8,6 +8,7 @@ import {
   Row_DatapointLog,
   SerializableEngine,
 } from "jm-castle-ac-dc-types";
+import { Table } from "jm-castle-types";
 import { createPool, Pool } from "mariadb";
 import { ControlContext } from "../../engines/ControlContext.mjs";
 import { EngineContext } from "../../engines/EngineContext.mjs";
@@ -46,7 +47,7 @@ const joinErrors = (list: string[], withError: WithError[]) => {
   }${withError.map((w) => w.error).join(" / ")}`;
 };
 
-export const AllTables = [
+export const AllTables: Table[] = [
   TableDatapoint,
   TableDatapointLog,
   TableDatapointControlLog,

@@ -15,6 +15,7 @@
 
 # private data
 /config/private-config.json
+/config/temp-config.json
 /config/private-setup-config.json
 
 #certificates

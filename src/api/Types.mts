@@ -1,10 +1,26 @@
 import { RequestHandler } from "express";
-import { DeviceType, isSimulation } from "../devices/DeviceTypes.mjs";
 import {
   QueryParametersSchema,
   SerializableDeviceType,
   SerializableService,
 } from "jm-castle-ac-dc-types";
+import { DeviceType } from "../devices/DeviceTypes.mjs";
+
+import { ErrorCode } from "jm-castle-types";
+
+export type ApiServiceResponse<T> =
+  | {
+      response: T;
+      error?: never;
+      errorCode?: never;
+      errorDetails?: never;
+    }
+  | {
+      response?: never;
+      error: string;
+      errorCode?: ErrorCode;
+      errorDetails?: Record<string, unknown>;
+    };
 
 export interface ApiService {
   url: string;
