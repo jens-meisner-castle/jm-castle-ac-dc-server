@@ -1,6 +1,6 @@
 {
   "name": "jm-castle-ac-dc-server",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "module": "./build",
   "files": [
     "build",
@@ -22,7 +22,7 @@
     "clean": "del-cli build",
     "prebuild": "npm run clean && eslint \"./src/**\"",
     "build": "tsc --project tsconfig.json",
-    "start": "node --experimental-modules ./build/index.mjs",
+    "start": "node --experimental-modules ./build/start.mjs",
     "dev": "nodemon --ext '*.mts' -x \"npm run build && npm run start \"",
     "dev:serve": "cross-env NODE_ENV=development ts-node-dev --inspect=9229 --nolazy --respawn ./src -r ts-node/register src/."
   },

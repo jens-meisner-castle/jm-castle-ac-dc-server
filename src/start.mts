@@ -5,7 +5,7 @@ import {
   configFilePath,
   readJsonFile,
 } from "./configuration/Configuration.mjs";
-import { newExpressApp } from "./express-app.mjs";
+import { newExpressApp } from "./express-app.js";
 import { PubSubWebsocketServer } from "./pub-sub/PubSubWebsocketServer.mjs";
 import {
   CastleAcDc,
