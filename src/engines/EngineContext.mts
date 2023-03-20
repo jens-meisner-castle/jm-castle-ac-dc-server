@@ -21,17 +21,23 @@ export class EngineContext {
       datapoints?: ContextDatapoints;
       sequences?: ContextSequences;
     },
+    lap: number,
     news?: EngineContext
   ) {
     init.datapoints && Object.assign(this.datapoints, init.datapoints);
     init.sequences && Object.assign(this.sequences, init.sequences);
     this.news = news;
+    this.lap = lap;
     return this;
   }
 
   private datapoints: ContextDatapoints = {};
   private sequences: ContextSequences = {};
   private news?: EngineContext;
+  private lap: number;
+
+  public getLap = () => this.lap;
+  public setLap = (lap: number) => (this.lap = lap);
 
   public copyWithNews = (news: EngineContext) => {
     return new EngineContext(
@@ -39,6 +45,7 @@ export class EngineContext {
         datapoints: this.datapoints,
         sequences: this.sequences,
       },
+      this.lap,
       news
     );
   };
@@ -49,6 +56,7 @@ export class EngineContext {
         datapoints: this.datapoints,
         sequences: this.sequences,
       },
+      this.lap,
       this.news
     );
   };

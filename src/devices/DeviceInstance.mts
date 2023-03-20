@@ -9,6 +9,7 @@ import {
   LocalDatapoint,
   LocalDatapointId,
 } from "jm-castle-ac-dc-types";
+import { getDateFormat } from "jm-castle-types/build";
 import { DateTime } from "luxon";
 import { EngineContextConsumer } from "../engines/Types.mjs";
 import { DeviceType, supportedDeviceTypes } from "./DeviceTypes.mjs";
@@ -263,6 +264,7 @@ export class DeviceInstance {
     const status = await this.deviceType.fetchStatus(this);
     const { suppressPeaks } = this.device;
     const { datapoints: states, error, responsive, accessedAt } = status;
+    const { datapoints: previousStates } = this.previousStatus || {};
     const mappedDatapoints: Record<string, DatapointState> = {};
     states &&
       Object.entries(states).forEach(([k, state]) => {
@@ -280,10 +282,11 @@ export class DeviceInstance {
             console.log(
               `suppressed peak ${fetchedValueNum} for value ${k}, consecutive: ${
                 (this.consecutiveSuppressedPeaks[k] || 0) + 1
-              }, at: ${DateTime.now().toFormat("yyyy-LL-dd hh:mm:ss")}`
+              }, at: ${DateTime.now().toFormat(getDateFormat("second"))}`
             );
-            const { datapoints } = this.previousStatus;
-            const previousValueNum = datapoints[k]?.valueNum;
+            const previousValueNum = previousStates
+              ? previousStates[k]?.valueNum
+              : undefined;
             if (
               typeof previousValueNum === "number" &&
               previousValueNum <= max
@@ -309,7 +312,7 @@ export class DeviceInstance {
           id: mappedKey,
         };
       });
-    this.previousStatus = status;
+    this.previousStatus = status.error ? this.previousStatus : status;
     return { error, responsive, accessedAt, datapoints: mappedDatapoints };
   };
 

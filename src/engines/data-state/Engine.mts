@@ -24,7 +24,7 @@ export class DatastateEngine
     return this;
   }
   private engineId: string;
-  private currentState: EngineContext = new EngineContext({});
+  private currentState: EngineContext = new EngineContext({}, 0);
   private lastStartedAt: number | undefined;
   private lastLapEndAt: number | undefined;
   private running = false;
@@ -76,6 +76,8 @@ export class DatastateEngine
 
   private lapStart = async (newContext: EngineContext) => {
     this.lap = this.lap + 1;
+    this.currentState.setLap(this.lap);
+    newContext.setLap(this.lap);
   };
 
   private lapEnd = async (newContext: EngineContext) => {

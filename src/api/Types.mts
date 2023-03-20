@@ -25,7 +25,7 @@ export type ApiServiceResponse<T> =
 export interface ApiService {
   url: string;
   parameters?: QueryParametersSchema;
-  method: "GET";
+  method: "GET" | "POST";
   scope?: "public" | "private";
   name: string;
   handler: RequestHandler<

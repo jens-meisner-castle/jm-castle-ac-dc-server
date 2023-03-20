@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "es2022",
+    "module": "ESNext",
     "esModuleInterop": true,
     "typeRoots": ["node_modules/@types"],
     "noImplicitAny": true,
     "moduleResolution": "NodeNext",
     "sourceMap": true,
-    "declaration": false,
-    "outDir": "dist",
+    "declaration": true,
+    "outDir": "build",
     "baseUrl": "./",
     "lib": ["ES6", "dom"],
     "skipLibCheck": true

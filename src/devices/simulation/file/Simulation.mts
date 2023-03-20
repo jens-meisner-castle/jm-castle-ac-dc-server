@@ -4,6 +4,7 @@ import {
   DeviceStatus,
   EngineControlResponse,
 } from "jm-castle-ac-dc-types";
+import { getDateFormat } from "jm-castle-types/build";
 import { DateTime } from "luxon";
 import { readJsonFile } from "../../../configuration/Configuration.mjs";
 import { getUrl } from "../Status.mjs";
@@ -53,7 +54,7 @@ function findValueAndIndex<T>(
   return result;
 }
 
-const luxonFormat = "yyyy-LL-dd HH:mm:ss";
+const luxonFormat = getDateFormat("second");
 
 const startOf20221111 = DateTime.fromFormat("2022-11-11 00:00:00", luxonFormat);
 

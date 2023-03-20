@@ -83,6 +83,7 @@ export class DatacollectorEngine implements Engine, Datacollector {
   private lapStart = async (context: EngineContext) => {
     const start = Date.now();
     this.lap = this.lap + 1;
+    context.setLap(this.lap);
     const contextForConsumers = context.copy();
     // the first consumer is the first one which receives the context change
     const consumers = [...this.consumers.lapStart].reverse();
@@ -115,7 +116,7 @@ export class DatacollectorEngine implements Engine, Datacollector {
 
   private run = async () => {
     this.running = true;
-    const context = new EngineContext({});
+    const context = new EngineContext({}, 0);
     while (this.shouldRun) {
       const { start, duration: startDuration } = await this.lapStart(context);
       const result = await this.runParts(context);

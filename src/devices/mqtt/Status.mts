@@ -193,7 +193,7 @@ export class MqttClient {
               point: publicDatapoint,
             });
         });
-        const context = new EngineContext({ datapoints });
+        const context = new EngineContext({ datapoints }, 0);
         for (let i = 0; i < this.eventConsumers.length; i++) {
           const consumner = this.eventConsumers[i];
           consumner.onContextChange(context);

@@ -1,13 +1,28 @@
 {
   "name": "jm-castle-ac-dc-server",
-  "version": "0.13.0",
+  "version": "0.14.0",
+  "module": "./build",
+  "files": [
+    "build",
+    "src"
+  ],
+  "exports": {
+    "./build": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    },
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    }
+  },
   "type": "module",
-  "main": "dist/index.mjs",
   "private": false,
   "scripts": {
-    "prebuild": "eslint \"./src/**\"",
+    "clean": "del-cli build",
+    "prebuild": "npm run clean && eslint \"./src/**\"",
     "build": "tsc --project tsconfig.json",
-    "start": "node --experimental-modules ./dist/index.mjs",
+    "start": "node --experimental-modules ./build/index.mjs",
     "dev": "nodemon --ext '*.mts' -x \"npm run build && npm run start \"",
     "dev:serve": "cross-env NODE_ENV=development ts-node-dev --inspect=9229 --nolazy --respawn ./src -r ts-node/register src/."
   },
@@ -43,9 +58,10 @@
     "@types/ws": "^8.5.3",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "cross-env": "^7.0.3",
+    "del-cli": "^5.0.0",
     "eslint": "^8.23.1",
-    "jm-castle-ac-dc-calc": "^0.9.8",
-    "jm-castle-ac-dc-types": "^0.12.0",
+    "jm-castle-ac-dc-calc": "^0.9.9",
+    "jm-castle-ac-dc-types": "^0.14.1",
     "jm-castle-mariadb": "^0.3.0",
     "jm-castle-types": "^0.4.0",
     "nodemon": "^2.0.19",

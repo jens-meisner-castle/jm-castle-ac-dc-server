@@ -1,7 +1,7 @@
 import { Row_DatapointControlLog as Row } from "jm-castle-ac-dc-types";
 import { InsertResponse, SelectResponse } from "jm-castle-types";
 import { MariaDbClient } from "../MariaDb.mjs";
-import { TableDatapointControlLog } from "../tables/DatapointControlLog.mjs";
+import { TableDatapointControlLog } from "../tables/DatapointControlLog.js";
 import { Filter_LoggedAt_FromTo_Seconds, valuesClause } from "./QueryUtils.mjs";
 
 export { Row };

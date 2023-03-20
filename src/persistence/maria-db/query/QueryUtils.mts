@@ -6,6 +6,10 @@ export interface Filter_LoggedAt_FromTo_Seconds {
   logged_at_to: number;
 }
 
+export interface Filter_NameLike {
+  name: string;
+}
+
 export const valueInClause = (v: any) => {
   return typeof v !== "number" && !v
     ? "NULL"

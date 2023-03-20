@@ -1,14 +1,14 @@
 import {
   DatapointState,
-  InsertResponse,
   LocalDatapointId,
   MariaDatabaseSpec,
   PersistentRow,
   Row_DatapointControlLog,
   Row_DatapointLog,
+  Row_Sample,
   SerializableEngine,
 } from "jm-castle-ac-dc-types";
-import { Table } from "jm-castle-types";
+import { InsertResponse, Table } from "jm-castle-types";
 import { createPool, Pool } from "mariadb";
 import { ControlContext } from "../../engines/ControlContext.mjs";
 import { EngineContext } from "../../engines/EngineContext.mjs";
@@ -26,10 +26,23 @@ import {
   insert as insertIntoDatapointLog,
   select as selectFromDatapointLog,
 } from "./query/DatapointLog.mjs";
-import { Filter_LoggedAt_FromTo_Seconds } from "./query/QueryUtils.mjs";
-import { TableDatapoint } from "./tables/Datapoint.mjs";
-import { TableDatapointControlLog } from "./tables/DatapointControlLog.mjs";
-import { TableDatapointLog } from "./tables/DatapointLog.mjs";
+import {
+  Filter_LoggedAt_FromTo_Seconds,
+  Filter_NameLike,
+} from "./query/QueryUtils.mjs";
+import {
+  all as allFromSample,
+  insert as insertSample,
+  select as selectFromSample,
+  selectByKey as selectByKeyFromSample,
+  update as updateSample,
+} from "./query/Sample.mjs";
+import { TableDatapoint } from "./tables/Datapoint.js";
+import { TableDatapointControlLog } from "./tables/DatapointControlLog.js";
+import { TableDatapointLog } from "./tables/DatapointLog.js";
+import { TableSample } from "./tables/Sample.js";
+import { TableSampleDataLog } from "./tables/SampleDataLog.js";
+import { TableSampleDatapoint } from "./tables/SampleDatapoint.js";
 
 export interface RunPartsResponse {
   // milliseconds of duration to run all parts
@@ -48,6 +61,9 @@ const joinErrors = (list: string[], withError: WithError[]) => {
 };
 
 export const AllTables: Table[] = [
+  TableSample,
+  TableSampleDatapoint,
+  TableSampleDataLog,
   TableDatapoint,
   TableDatapointLog,
   TableDatapointControlLog,
@@ -55,7 +71,7 @@ export const AllTables: Table[] = [
 
 const makeRunOnEngineContext = <R extends PersistentRow>(
   createRow: (state: DatapointState) => R,
-  insertRow: (row: R) => Promise<InsertResponse>,
+  insertRow: (row: R) => Promise<InsertResponse<R>>,
   ...ids: string[]
 ) => {
   const previousStates: Record<string, DatapointState> = {};
@@ -69,9 +85,10 @@ const makeRunOnEngineContext = <R extends PersistentRow>(
         const { state } = context.getDatapoint(id) || {};
         const previousState = previousStates[id];
         if (!state) {
-          stateErrors.push(
-            `Datapoint "${id}" is not availabe in engine context.".`
-          );
+          context.getLap() > 3 &&
+            stateErrors.push(
+              `Datapoint "${id}" is not availabe in engine context.".`
+            );
         } else {
           const shouldInsert = !previousState || previousState.at !== state.at;
           shouldInsert && rows.push(createRow(state));
@@ -101,7 +118,7 @@ const makeRunOnControlContext = <R extends PersistentRow>(
     executed: boolean,
     success: boolean
   ) => R,
-  insertRow: (row: R) => Promise<InsertResponse>,
+  insertRow: (row: R) => Promise<InsertResponse<R>>,
   datapointTargets: Record<string, LocalDatapointId[]>
 ) => {
   const run = async (
@@ -167,6 +184,17 @@ export class MariaDbClient implements Persistence, Engine {
   private handlePoolError = (error: Error) =>
     console.error("Received error from database pool: " + error.toString());
   public type = () => "maria-db";
+  public tables = {
+    sample: {
+      insert: (values: Row_Sample & PersistentRow) =>
+        insertSample(values, this),
+      update: (values: Row_Sample & PersistentRow) =>
+        updateSample(values, this),
+      select: (filter: Filter_NameLike) => selectFromSample(filter, this),
+      selectByKey: (sampleId: string) => selectByKeyFromSample(sampleId, this),
+      all: () => allFromSample(this),
+    },
+  };
   public datapoint_log = {
     makePersistPart: (...datapoints: string[]) => {
       const createRow = (state: DatapointState): Row_DatapointLog => {
