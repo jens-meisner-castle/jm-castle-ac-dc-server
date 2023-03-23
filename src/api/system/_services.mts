@@ -1,5 +1,6 @@
 import { UniqueDatapoint } from "jm-castle-ac-dc-types";
 import { executeSetup } from "jm-castle-mariadb";
+import { ApiServiceResponse } from "jm-castle-types";
 import { getOptionalSingleQueryParametersSchema } from "../../json-schema/parameters.mjs";
 import {
   AllTables,
@@ -7,7 +8,7 @@ import {
 } from "../../persistence/maria-db/MariaDb.mjs";
 import { getSystemSetupStatus } from "../../system/setup/Status.mjs";
 import { getCurrentSystem } from "../../system/status/System.mjs";
-import { ApiService, ApiServiceResponse } from "../Types.mjs";
+import { ApiService } from "../Types.mjs";
 import { withDefaultPersistence } from "../Utils.mjs";
 const allServices: ApiService[] = [];
 

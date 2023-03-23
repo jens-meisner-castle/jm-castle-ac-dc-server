@@ -1,5 +1,6 @@
 import { Response } from "express";
 import {
+  ApiServiceResponse,
   CastleConfigErrorCode,
   DevErrorCode,
   ErrorCode,
@@ -7,7 +8,6 @@ import {
 } from "jm-castle-types";
 import { Persistence } from "../persistence/Types.mjs";
 import { getCurrentSystem } from "../system/status/System.mjs";
-import { ApiServiceResponse } from "./Types.mjs";
 
 export const handleError = (
   res: Response,

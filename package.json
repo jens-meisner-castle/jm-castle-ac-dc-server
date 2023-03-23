@@ -1,6 +1,6 @@
 {
   "name": "jm-castle-ac-dc-server",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "module": "./build",
   "files": [
     "build",
@@ -22,7 +22,7 @@
     "clean": "del-cli build",
     "prebuild": "npm run clean && eslint \"./src/**\"",
     "build": "tsc --project tsconfig.json",
-    "start": "node --experimental-modules ./build/start.mjs",
+    "start": "node ./build/start.mjs",
     "dev": "nodemon --ext '*.mts' -x \"npm run build && npm run start \"",
     "dev:serve": "cross-env NODE_ENV=development ts-node-dev --inspect=9229 --nolazy --respawn ./src -r ts-node/register src/."
   },
@@ -63,7 +63,7 @@
     "jm-castle-ac-dc-calc": "^0.9.9",
     "jm-castle-ac-dc-types": "^0.14.1",
     "jm-castle-mariadb": "^0.3.0",
-    "jm-castle-types": "^0.4.0",
+    "jm-castle-types": "^0.4.3",
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
     "ts-node": "^10.9.1",
