@@ -121,6 +121,8 @@ export class CastleAcDc {
   private serverCert: Buffer;
   private serverKey: Buffer;
 
+  public clientPath = () => this.validConfig.system.client?.path || "./client";
+
   public start = async () => {
     await this.setupMailSenders();
     if (this.defaultMailSender) {

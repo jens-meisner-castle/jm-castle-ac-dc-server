@@ -2,10 +2,12 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import createError from "http-errors";
+import { CastleAcDc } from "./index.js";
+import fs from "fs"
 
 import { router as apiRouter } from "./routes/api.mjs";
 
-export const newExpressApp = (port: number | string | false) => {
+export const newExpressApp = (port: number | string | false, system: CastleAcDc) => {
   const app = express();
 
   app.set("port", port);
@@ -14,12 +16,16 @@ export const newExpressApp = (port: number | string | false) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
-  app.use(express.static("./client"));
+
+  const clientPath = system.clientPath();
+  const indexHtml = fs.readFileSync(`${clientPath}/index.html`);
+    app.use(express.static(clientPath));
 
   app.use("/api", apiRouter);
 
-  app.get("*", (req, res, next) => {
-    res.render("index.html");
+  app.get("*", (req: express.Request, res, next) => {
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(indexHtml);
   });
 
   // catch 404 and forward to error handler

@@ -1,6 +1,6 @@
 {
   "name": "jm-castle-ac-dc-server",
-  "version": "0.14.3",
+  "version": "0.14.5",
   "module": "./build",
   "files": [
     "build",
@@ -45,7 +45,6 @@
     "mqtt": "^4.3.7",
     "node-fetch": "^3.2.10",
     "nodemailer": "^6.8.0",
-    "typescript": "^4.8.3",
     "ws": "^8.10.0"
   },
   "devDependencies": {
@@ -61,12 +60,13 @@
     "del-cli": "^5.0.0",
     "eslint": "^8.23.1",
     "jm-castle-ac-dc-calc": "^0.10.0",
-    "jm-castle-ac-dc-types": "^0.14.1",
+    "jm-castle-ac-dc-types": "^0.15.1",
     "jm-castle-mariadb": "^0.3.0",
     "jm-castle-types": "^0.4.3",
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
     "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0"
+    "ts-node-dev": "^2.0.0",
+    "typescript": "4.8.3"
   }
 }

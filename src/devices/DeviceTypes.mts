@@ -21,6 +21,7 @@ import { SimulationConstType } from "./simulation/const/Types.mjs";
 import { SimulationDayAndNightType } from "./simulation/day-night/Types.mjs";
 import { SimulationFileType } from "./simulation/file/Types.mjs";
 import { SimulationSecondsType } from "./simulation/seconds/Types.mjs";
+import { HichiSmlReader } from "./hichiSmlReader/Types.mjs";
 
 export type DeviceType = {
   id: DeviceTypeId;
@@ -53,6 +54,7 @@ const allDevices: Record<DeviceTypeId, DeviceType> = {
   "shelly-plug-s": ShellyPlugS,
   "shelly-2-5": Shelly25,
   "bosswerk-mi-600": BosswerkMi600,
+  "hichi-sml-reader": HichiSmlReader,
   "sim-seconds": SimulationSecondsType,
   "sim-const": SimulationConstType,
   "sim-file": SimulationFileType,

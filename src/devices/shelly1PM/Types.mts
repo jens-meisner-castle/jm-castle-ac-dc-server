@@ -165,6 +165,8 @@ export const controlDatapoints = (): Partial<
 export const Shelly1PM: DeviceType = {
   id: deviceTypeId,
   name: "Shelly 1PM",
+  description:
+    "Der Shelly 1PM oder plus 1PM misst Spannung, Strom und Phasenwinkel und berechnet aus diesen drei Werten die Wirkleistung.",
   isSimulation: false,
   datapoints: deviceDatapoints(),
   controlDatapoints: controlDatapoints(),

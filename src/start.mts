@@ -53,7 +53,7 @@ await system.start();
 
 const port = system.getOwnPort();
 
-const app = newExpressApp(port);
+const app = newExpressApp(port, system);
 
 const server = createServer(
   {
